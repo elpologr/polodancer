@@ -1051,6 +1051,80 @@
         }
         body.modo-oscuro .mp-descripcion { background: #1e1e1e; color: #bbb; border-color: #fe2c55; }
 
+        /* ══ Video de Seguimiento (short vertical) ══ */
+        .mp-seguimiento-zona { margin: 0 0 18px 0; }
+        .mp-seguimiento-etiqueta {
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        body.modo-oscuro .mp-seguimiento-etiqueta { color: #bbb; }
+        .mp-seguimiento-caja {
+            position: relative;
+            width: 96px;
+            aspect-ratio: 9 / 16;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #fe2c55;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            background: #111;
+        }
+        .mp-seguimiento-caja img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .mp-seguimiento-fallback {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg,#fe2c55,#3a0a15);
+            color: #fff; font-size: 24px;
+        }
+        .mp-seguimiento-play {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: #fff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+        #overlaySeguimientoVertical {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+        #overlaySeguimientoVertical .mp-seguimiento-track {
+            width: 100%;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        #overlaySeguimientoVertical .mp-seguimiento-track iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        .mp-seguimiento-cerrar {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .mp-seguimiento-cerrar:hover { background: rgba(255,255,255,0.3); }
+
         /* ══ BIOGRAFÍA ══ */
         .bio-grid {
             display: grid;
@@ -2452,7 +2526,7 @@
 
                 <!-- ═══ Confianza / Quiénes Somos ═══ -->
                 <p class="bio-parrafo" style="margin-bottom:20px;">
-                    Esta Pagina web fue creada por mi (El Polo) ya que ademas de vender piezas de yeso tambien soy Programador y Desarrollador Web, y lo que te puede dar confianza sobre nosotros son nuestros 25 años vendiendo velas en velaskukumita.com, tambien tenemos un local donde atendemos personalmente desde hace 7 años, te dejare informacion en los siguientes botones de abajo.
+                    Esta Pagina web fue creada por mi (El Polo) ya que además de vender piezas de yeso también soy Programador y Desarrollador Web, y lo que te puede dar confianza sobre nosotros son nuestros 25 años vendiendo velas en <a href="https://velaskukumita.com" target="_blank" rel="noopener" style="color:#fe2c55;font-weight:700;text-decoration:underline;">velaskukumita.com</a>, Y también tenemos un local donde atendemos personalmente desde hace 5 años, te dejare información en los siguientes botones de abajo.
                 </p>
 
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px;">
@@ -2580,6 +2654,12 @@
                 </div>
             </div>
 
+            <!-- ═══ Video de Seguimiento (edición vertical tipo short, solo si existe en la hoja) ═══ -->
+            <div class="mp-seguimiento-zona" id="mpSeguimientoZona" style="display:none;">
+                <p class="mp-seguimiento-etiqueta">Video de Seguimiento</p>
+                <div class="mp-seguimiento-caja" id="mpSeguimientoCaja" onclick="abrirSeguimientoVertical()"></div>
+            </div>
+
             <!-- ═══ Comentarios públicos (solo aparece en videos) ═══ -->
             <div class="mp-comentarios" id="mpComentarios" style="display:none;">
                 <h3 class="mp-comentarios-titulo">Comentarios</h3>
@@ -2632,6 +2712,12 @@
                 <a id="link-tiktok" href="#" target="_blank" class="btn-tienda tienda-tiktok">🎵 TikTok Shop</a>
             </div>
         </div>
+    </div>
+
+    <!-- ═══ OVERLAY PANTALLA COMPLETA — VIDEO DE SEGUIMIENTO VERTICAL ═══ -->
+    <div id="overlaySeguimientoVertical">
+        <button class="mp-seguimiento-cerrar" onclick="cerrarSeguimientoVertical()">✕</button>
+        <div class="mp-seguimiento-track" id="mpSeguimientoTrack"></div>
     </div>
 
     <!-- ═══ MODAL HACEMOS PÁGINAS WEB ═══ -->
@@ -2781,6 +2867,7 @@
                 const plataformasDiv = document.getElementById('mpPlataformasVideo');
                 if (plataformasDiv) { plataformasDiv.innerHTML = ''; plataformasDiv.style.display = 'none'; }
                 if (typeof ocultarComentariosVideo === 'function') ocultarComentariosVideo();
+                if (typeof cerrarSeguimientoVertical === 'function') cerrarSeguimientoVertical();
             }
             document.getElementById(modalId).style.display = 'none';
             document.body.classList.remove('modal-abierto');
@@ -3044,6 +3131,23 @@
                 descEl.textContent = desc;
                 descEl.style.display = desc ? 'block' : 'none';
             }
+
+            // Zona de "Seguimiento" — video vertical tipo short (solo si la hoja trae ese link)
+            const seguimientoZona = document.getElementById('mpSeguimientoZona');
+            const seguimientoCaja = document.getElementById('mpSeguimientoCaja');
+            if (seguimientoZona && seguimientoCaja) {
+                if (card.dataset.seguimientoTipo) {
+                    seguimientoZona.style.display = 'block';
+                    if (card.dataset.seguimientoThumb) {
+                        seguimientoCaja.innerHTML = `<img src="${card.dataset.seguimientoThumb}" alt="Video de seguimiento vertical" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'mp-seguimiento-fallback'},{innerHTML:'▶'}))"><div class="mp-seguimiento-play">▶</div>`;
+                    } else {
+                        seguimientoCaja.innerHTML = `<div class="mp-seguimiento-fallback">▶</div>`;
+                    }
+                } else {
+                    seguimientoZona.style.display = 'none';
+                    seguimientoCaja.innerHTML = '';
+                }
+            }
             // Si la tarjeta es un video de Sheets (YouTube, Facebook o Instagram), mostrar
             // un placeholder con los botones de cada red social disponible. El video solo
             // se reproduce cuando la persona presiona el botón de la red que quiere ver.
@@ -3073,8 +3177,8 @@
                     plataformasDiv.innerHTML = '';
                     const plataformas = [];
                     if (card.dataset.ytEmbed) plataformas.push({ tipo: 'youtube', clase: 'yt', etiqueta: 'YouTube', embed: card.dataset.ytEmbed });
-                    if (card.dataset.fbEmbed) plataformas.push({ tipo: 'facebook', clase: 'fb', etiqueta: 'Facebook', embed: card.dataset.fbEmbed });
                     if (card.dataset.igEmbed) plataformas.push({ tipo: 'instagram', clase: 'ig', etiqueta: 'Instagram', embed: card.dataset.igEmbed });
+                    // El botón de Facebook se quitó a petición: solo se muestran YouTube e Instagram.
 
                     plataformas.forEach(p => {
                         const btn = document.createElement('button');
@@ -3126,6 +3230,43 @@
 
         // Inserta el iframe de la plataforma elegida (solo se llama cuando la persona
         // presiona un botón de YouTube / Facebook / Instagram, nunca automáticamente).
+        // Abre en pantalla completa vertical el video de "Seguimiento" del video que está
+        // activo en la ficha (el mismo baile pero con edición vertical tipo short).
+        function abrirSeguimientoVertical() {
+            if (!productoActivo) return;
+            const tipo  = productoActivo.dataset.seguimientoTipo;
+            const embed = productoActivo.dataset.seguimientoEmbed;
+            const url   = productoActivo.dataset.seguimientoUrl;
+            if (!tipo) return;
+
+            // Si no se pudo armar un embed (link no reconocido), se abre directo en una pestaña nueva
+            if (!embed) {
+                if (url) window.open(url, '_blank', 'noopener');
+                return;
+            }
+
+            const track = document.getElementById('mpSeguimientoTrack');
+            if (tipo === 'youtube') {
+                track.innerHTML = `<iframe src="${embed}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else if (tipo === 'facebook') {
+                track.innerHTML = `<iframe src="${embed}" scrolling="no" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
+            } else if (tipo === 'instagram') {
+                track.innerHTML = `<iframe src="${embed}" allowtransparency="true" allowfullscreen="true"></iframe>`;
+            } else {
+                return;
+            }
+            document.getElementById('overlaySeguimientoVertical').style.display = 'flex';
+            document.body.classList.add('modal-abierto');
+        }
+
+        function cerrarSeguimientoVertical() {
+            const track = document.getElementById('mpSeguimientoTrack');
+            if (track) track.innerHTML = '';
+            const overlay = document.getElementById('overlaySeguimientoVertical');
+            if (overlay) overlay.style.display = 'none';
+            document.body.classList.remove('modal-abierto');
+        }
+
         function reproducirVideoModal(tipo, embed) {
             const track = document.getElementById('mpTrack');
             if (!track || !embed) return;
@@ -3141,8 +3282,8 @@
         // ═══════════════════════════════════════════════
         //  VIDEOS — GOOGLE SHEETS (zona de Videos)
         // ═══════════════════════════════════════════════
-        // Columnas esperadas en la hoja: Titulo | Descripcion | Fecha | Link youtube | enbeed facebook | enbeed instagram
-        const SHEET_ID_VIDEOS  = '1W1yux5rQaNlPjufGy2OFQQJxoXtDaXeSgeQTywoxpu4';
+        // Columnas esperadas en la hoja: Titulo | Descripcion | Fecha | Youtube | Seguimiento (video vertical) | Facebook | Instagram
+        const SHEET_ID_VIDEOS  = '1c2GPhncno8XgPvHeGzsUF7xHxDSaLK4UAXlEZzXBNdc';
         const SHEET_URL_VIDEOS = `https://docs.google.com/spreadsheets/d/${SHEET_ID_VIDEOS}/gviz/tq?tqx=out:csv&sheet=Videos%20Redes`;
 
         // Columnas esperadas en Sheet2 (Proyectos): Titulo | Imagen (Cloudinary) | Descripcion | Link
@@ -3315,6 +3456,23 @@
             return null;
         }
 
+        // Prepara los datos del video de "Seguimiento" (la edición vertical tipo short del mismo
+        // video). Si es un link de YouTube/Facebook/Instagram se arma su embed para reproducirlo
+        // en pantalla completa vertical; si no se reconoce el formato, se deja como link directo.
+        function prepararSeguimientoVertical(url) {
+            const u = (url || '').trim();
+            if (!u) return null;
+            const yt = construirEmbedYoutube(u);
+            if (yt) return { tipo: 'youtube', embed: yt.embed, thumb: `https://img.youtube.com/vi/${yt.id}/hqdefault.jpg` };
+            if (u.includes('instagram.com')) {
+                return { tipo: 'instagram', embed: construirEmbedInstagram(u), thumb: construirMiniaturaInstagram(u) };
+            }
+            if (u.includes('facebook.com') || u.includes('fb.watch')) {
+                return { tipo: 'facebook', embed: construirEmbedFacebook(u), thumb: null };
+            }
+            return { tipo: 'link', embed: null, url: u, thumb: null };
+        }
+
         function escaparHTMLVideo(str) {
             const div = document.createElement('div');
             div.textContent = str || '';
@@ -3343,7 +3501,7 @@
                 // Una fila es válida si tiene al menos un link (YouTube, Facebook o Instagram),
                 // el Título es opcional — si falta, se intenta autocompletar más abajo.
                 const datos = filas.slice(1).filter(f =>
-                    (f[3] || '').trim() !== '' || (f[4] || '').trim() !== '' || (f[5] || '').trim() !== ''
+                    (f[3] || '').trim() !== '' || (f[5] || '').trim() !== '' || (f[6] || '').trim() !== ''
                 );
 
                 const videos = datos.map(f => ({
@@ -3352,8 +3510,9 @@
                     fechaTexto:  (f[2] || '').trim(),
                     fechaObj:    parsearFechaVideo(f[2]),
                     youtube:     (f[3] || '').trim(),
-                    facebook:    (f[4] || '').trim(),
-                    instagram:   (f[5] || '').trim()
+                    seguimiento: (f[4] || '').trim(),
+                    facebook:    (f[5] || '').trim(),
+                    instagram:   (f[6] || '').trim()
                 }));
 
                 // Autocompletar el título de los videos que no traen uno en la hoja
@@ -3415,6 +3574,15 @@
                 if (ytData)  { card.dataset.ytEmbed = ytData.embed; card.dataset.ytId = ytData.id; }
                 if (fbEmbed) { card.dataset.fbEmbed = fbEmbed; }
                 if (igEmbed) { card.dataset.igEmbed = igEmbed; }
+
+                const seg = v.seguimiento ? prepararSeguimientoVertical(v.seguimiento) : null;
+                if (seg) {
+                    card.dataset.seguimientoTipo = seg.tipo;
+                    if (seg.embed) card.dataset.seguimientoEmbed = seg.embed;
+                    if (seg.thumb) card.dataset.seguimientoThumb = seg.thumb;
+                    if (seg.url)   card.dataset.seguimientoUrl   = seg.url;
+                }
+
                 card.onclick = function () { abrirFichaProducto(card); };
 
                 let miniatura;
