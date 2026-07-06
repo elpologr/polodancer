@@ -3382,8 +3382,12 @@
             return isNaN(fallback2) ? new Date(0) : fallback2;
         }
 
+        // Extrae el ID de video de YouTube aceptando la mayoría de formatos de link que puede
+        // pegar una persona: watch, youtu.be, embed, shorts, live, con o sin "www"/"m", con
+        // parámetros extra (&si=, &t=, ?feature=...) y con espacios accidentales al copiar.
         function extraerYoutubeId(url) {
-            const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{6,})/);
+            const u = (url || '').trim();
+            const m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/|v\/))([a-zA-Z0-9_-]{6,})/i);
             return m ? m[1] : null;
         }
 
