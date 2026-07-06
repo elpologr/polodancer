@@ -3437,6 +3437,31 @@
             img.replaceWith(div);
         }
 
+        // Cadena de respaldo para miniaturas de YouTube: maxresdefault → mqdefault → hqdefault →
+        // si ninguna carga (video muy nuevo, restringido, etc.), se muestra un recuadro con
+        // degradado e ícono de play en vez de dejar un ícono de imagen rota.
+        function manejarErrorMiniaturaYT(img, youtubeId) {
+            const paso = img.dataset.ytFallback;
+            if (paso === 'mq') {
+                img.dataset.ytFallback = 'hq';
+                img.src = `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+            } else if (paso === 'hq') {
+                img.dataset.ytFallback = 'fin';
+                img.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+            } else {
+                const div = document.createElement('div');
+                div.className = 'producto-img';
+                div.style.display = 'flex';
+                div.style.alignItems = 'center';
+                div.style.justifyContent = 'center';
+                div.style.background = 'linear-gradient(135deg,#ff4d4d,#3a0a0a)';
+                div.style.color = '#fff';
+                div.style.fontSize = '42px';
+                div.textContent = '▶';
+                img.replaceWith(div);
+            }
+        }
+
         // Decide qué tipo de embed usar para la miniatura/título: YouTube > Facebook > Instagram
         function detectarMediaVideo(yt, fb, ig) {
             if (yt && yt.trim()) {
@@ -3591,7 +3616,7 @@
 
                 let miniatura;
                 if (media.tipo === 'youtube' && media.youtubeId) {
-                    miniatura = `<img class="producto-img" src="https://img.youtube.com/vi/${media.youtubeId}/maxresdefault.jpg" alt="${escaparHTMLVideo(v.titulo)}" onerror="this.src='https://img.youtube.com/vi/${media.youtubeId}/mqdefault.jpg';this.onerror=function(){this.style.background='#111'}">`;
+                    miniatura = `<img class="producto-img" src="https://img.youtube.com/vi/${media.youtubeId}/maxresdefault.jpg" alt="${escaparHTMLVideo(v.titulo)}" onerror="manejarErrorMiniaturaYT(this,'${media.youtubeId}')" data-yt-fallback="mq">`;
                 } else if (media.tipo === 'facebook') {
                     miniatura = `<div class="producto-img" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1877F2,#0d3f8f);color:#fff; text-shadow: var(--trazo-negro);font-size:42px;">▶</div>`;
                 } else {
