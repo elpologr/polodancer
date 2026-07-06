@@ -2449,6 +2449,27 @@
             <!-- Layout grid: recuadro izq | texto der -->
             <!-- Texto biográfico -->
             <div style="padding: 0 20px;">
+
+                <!-- ═══ Confianza / Quiénes Somos ═══ -->
+                <p class="bio-parrafo" style="margin-bottom:20px;">
+                    Esta Pagina web fue creada por mi (El Polo) ya que ademas de vender piezas de yeso tambien soy Programador y Desarrollador Web, y lo que te puede dar confianza sobre nosotros son nuestros 25 años vendiendo velas en velaskukumita.com, tambien tenemos un local donde atendemos personalmente desde hace 7 años, te dejare informacion en los siguientes botones de abajo.
+                </p>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px;">
+                    <div style="text-align:center;">
+                        <p style="font-weight:700;margin-bottom:10px;font-size:15px;">Hacemos Páginas Web</p>
+                        <div onclick="abrirModal('modalPaginasWeb')" style="cursor:pointer;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:3px solid #fe2c55;box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+                            <img src="imagenes/hacemos-paginas-web.webp" alt="Hacemos Páginas Web" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.style.background='linear-gradient(135deg,#fe2c55,#3a0a15)';this.remove()">
+                        </div>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="font-weight:700;margin-bottom:10px;font-size:15px;">Nuestro Local Físico</p>
+                        <div onclick="abrirModal('modalLocalFisico')" style="cursor:pointer;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:3px solid #fe2c55;box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+                            <img src="imagenes/nuestro-local-fisico.webp" alt="Nuestro Local Físico" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.style.background='linear-gradient(135deg,#fe2c55,#3a0a15)';this.remove()">
+                        </div>
+                    </div>
+                </div>
+
                 <h2 class="bio-titulo">El Polo Dancer: Bailarín y Desarrollador Web</h2>
                 <p class="bio-parrafo" style="font-weight:700;margin-bottom:6px;">
                     Sobre el Baile:
@@ -2610,6 +2631,24 @@
                 <a id="link-amazon" href="#" target="_blank" class="btn-tienda tienda-amazon">⚫ Amazon</a>
                 <a id="link-tiktok" href="#" target="_blank" class="btn-tienda tienda-tiktok">🎵 TikTok Shop</a>
             </div>
+        </div>
+    </div>
+
+    <!-- ═══ MODAL HACEMOS PÁGINAS WEB ═══ -->
+    <div id="modalPaginasWeb" class="modal" onclick="if(event.target.id==='modalPaginasWeb') cerrarModal('modalPaginasWeb')">
+        <div class="modal-contenido" onclick="event.stopPropagation()">
+            <span class="cerrar-modal" onclick="cerrarModal('modalPaginasWeb')">&times;</span>
+            <div class="modal-titulo">Hacemos Páginas Web</div>
+            <p class="bio-parrafo" style="text-align:left;">Contenido próximamente...</p>
+        </div>
+    </div>
+
+    <!-- ═══ MODAL NUESTRO LOCAL FÍSICO ═══ -->
+    <div id="modalLocalFisico" class="modal" onclick="if(event.target.id==='modalLocalFisico') cerrarModal('modalLocalFisico')">
+        <div class="modal-contenido" onclick="event.stopPropagation()">
+            <span class="cerrar-modal" onclick="cerrarModal('modalLocalFisico')">&times;</span>
+            <div class="modal-titulo">Nuestro Local Físico</div>
+            <p class="bio-parrafo" style="text-align:left;">Contenido próximamente...</p>
         </div>
     </div>
 
@@ -3134,31 +3173,72 @@
         }
 
         // Interpreta la fecha en distintos formatos comunes de Sheets (dd/mm/aaaa, aaaa-mm-dd, etc.)
+        // Se robusteció para aceptar: hora pegada a la fecha (ej. "06/07/2026 0:00:00", típico al
+        // exportar una columna con formato de fecha desde Sheets), día de la semana al inicio
+        // (ej. "jueves, 6 de julio de 2026"), meses abreviados (ej. "6-jul-2026") y variantes con
+        // o sin acentos/"del". Antes, cualquier formato no contemplado caía a la fecha 1970, lo que
+        // hacía que esos videos no quedaran ordenados por fecha real.
         function parsearFechaVideo(texto) {
             if (!texto) return new Date(0);
-            const t = texto.trim();
-            let m = t.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+            let t = texto.trim();
+
+            // Quita nombre de día de la semana al inicio, ej: "jueves, 6 de julio de 2026"
+            const dias = ['lunes','martes','miércoles','miercoles','jueves','viernes','sábado','sabado','domingo'];
+            t = t.replace(new RegExp('^(' + dias.join('|') + ')\\s*,?\\s*', 'i'), '');
+
+            // Quita la hora si viene pegada a la fecha (ej: "06/07/2026 0:00:00" o ISO con "T")
+            let soloFecha = t.replace(/[T\s]\d{1,2}:\d{2}(:\d{2})?(\.\d+)?(\s*(a\.?m\.?|p\.?m\.?))?Z?$/i, '').trim();
+            if (!soloFecha) soloFecha = t;
+
+            const meses = { enero:0, ene:0, febrero:1, feb:1, marzo:2, mar:2, abril:3, abr:3, mayo:4, may:4,
+                             junio:5, jun:5, julio:6, jul:6, agosto:7, ago:7,
+                             septiembre:8, setiembre:8, sep:8, sept:8, octubre:9, oct:9,
+                             noviembre:10, nov:10, diciembre:11, dic:11 };
+
+            // dd/mm/aaaa o dd-mm-aaaa (con o sin ceros a la izquierda)
+            let m = soloFecha.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
             if (m) {
                 let [, d, mo, y] = m;
                 if (y.length === 2) y = '20' + y;
-                return new Date(+y, +mo - 1, +d);
+                const f = new Date(+y, +mo - 1, +d);
+                if (!isNaN(f)) return f;
             }
-            m = t.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+
+            // aaaa-mm-dd o aaaa/mm/dd
+            m = soloFecha.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
             if (m) {
                 const [, y, mo, d] = m;
-                return new Date(+y, +mo - 1, +d);
+                const f = new Date(+y, +mo - 1, +d);
+                if (!isNaN(f)) return f;
             }
-            // Formato en español: "12 junio 2020" / "12 de junio de 2020"
-            const meses = { enero:0, febrero:1, marzo:2, abril:3, mayo:4, junio:5, julio:6, agosto:7,
-                             septiembre:8, setiembre:8, octubre:9, noviembre:10, diciembre:11 };
-            m = t.toLowerCase().match(/^(\d{1,2})\s*(?:de\s*)?([a-záéíóúñ]+)\s*(?:de\s*)?(\d{4})$/);
+
+            // Formato en español largo: "12 de junio de 2020" / "12 junio 2020" / "12 de junio del 2020"
+            m = soloFecha.toLowerCase().match(/^(\d{1,2})\s*(?:de\s*)?([a-záéíóúñ]+)\.?\s*(?:de[l]?\s*)?(\d{4})$/);
             if (m) {
                 const [, d, mesTxt, y] = m;
                 const mesNum = meses[mesTxt];
-                if (mesNum !== undefined) return new Date(+y, mesNum, +d);
+                if (mesNum !== undefined) {
+                    const f = new Date(+y, mesNum, +d);
+                    if (!isNaN(f)) return f;
+                }
             }
-            const fallback = new Date(t);
-            return isNaN(fallback) ? new Date(0) : fallback;
+
+            // Formato corto con mes abreviado y guiones/espacios: "6-jul-2026" o "6 jul 2026"
+            m = soloFecha.toLowerCase().match(/^(\d{1,2})[\s\-]([a-záéíóúñ]+)\.?[\s\-](\d{4})$/);
+            if (m) {
+                const [, d, mesTxt, y] = m;
+                const mesNum = meses[mesTxt];
+                if (mesNum !== undefined) {
+                    const f = new Date(+y, mesNum, +d);
+                    if (!isNaN(f)) return f;
+                }
+            }
+
+            // Último recurso: que el propio navegador intente interpretarla
+            const fallback = new Date(soloFecha);
+            if (!isNaN(fallback)) return fallback;
+            const fallback2 = new Date(t);
+            return isNaN(fallback2) ? new Date(0) : fallback2;
         }
 
         function extraerYoutubeId(url) {
