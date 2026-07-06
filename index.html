@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polo Dancer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-texto:       #111;
-            --color-texto-medio: #333;
-            --color-texto-suave: #666;
-            --color-fondo:       #fff;
-            --color-fondo-suave: #fafafa;
-            --color-borde:       #eee;
+            --color-texto:       #f4eef1;
+            --color-texto-medio: #ddccd6;
+            --color-texto-suave: #b9a3b1;
+            --color-fondo:       #1c0f1a;
+            --color-fondo-suave: #2a1626;
+            --color-borde:       #4a2a42;
+            --trazo-negro: -0.6px -0.6px 0 rgba(0,0,0,0.85), 0.6px -0.6px 0 rgba(0,0,0,0.85), -0.6px 0.6px 0 rgba(0,0,0,0.85), 0.6px 0.6px 0 rgba(0,0,0,0.85);
         }
         body.modo-oscuro {
             --color-texto:       #f0f0f0;
@@ -20,20 +24,26 @@
             --color-fondo:       #121212;
             --color-fondo-suave: #1e1e1e;
             --color-borde:       #333333;
+            background-image: none;
+            background-color: #121212;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #c890d8; /* fallback mientras cargan las capas */
             color: var(--color-texto-medio);
         }
         
         /* Barra de Redes */
         .barra-redes {
-            background-color: #111;
-            color: white;
+            background-color: #1a1030;
+            background-image:
+                radial-gradient(circle at 10% 30%, rgba(255, 120, 170, 0.28) 0%, transparent 55%),
+                radial-gradient(circle at 90% 30%, rgba(80, 130, 220, 0.30) 0%, transparent 55%),
+                linear-gradient(100deg, #241432 0%, #1c1330 50%, #14152e 100%);
+            color: white; text-shadow: var(--trazo-negro);
             padding: 10px 20px;
             text-align: right;
             font-size: 14px;
@@ -43,7 +53,7 @@
             color: #ccc;
         }
         .barra-redes a {
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             text-decoration: none;
             margin-left: 15px;
             transition: color 0.2s;
@@ -72,8 +82,8 @@
             justify-content: center;
             align-items: center;
             padding: 32px 16px 24px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
+            background: transparent;
+            border-bottom: none;
         }
         .perfil-avatar-marco {
             width: 220px;
@@ -82,8 +92,8 @@
             max-height: 60vw;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-            border: 3px solid #e8e8e8;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+            border: 3px solid #fe2c55;
             flex-shrink: 0;
         }
         .perfil-avatar-img {
@@ -93,11 +103,11 @@
             display: block;
         }
         body.modo-oscuro .perfil-avatar-contenedor {
-            background: #121212;
-            border-bottom-color: #2a2a2a;
+            background: transparent;
+            border-bottom: none;
         }
         body.modo-oscuro .perfil-avatar-marco {
-            border-color: #333;
+            border-color: #fe2c55;
         }
 
         .contenedor {
@@ -128,27 +138,42 @@
             margin: 10px auto 0 auto;
             border-radius: 2px;
         }
-        /* ── BOTÓN VELAS KUKUMITA ── */
-        .btn-velas-kukumita {
+        .titulo-epico-polo {
+            font-family: 'Anton', 'Segoe UI', sans-serif;
+            font-size: 64px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #111 0%, #fe2c55 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #ffffff;
+            paint-order: stroke fill;
+            color: #111;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+        }
+        body.modo-oscuro .titulo-epico-polo {
+            background: linear-gradient(135deg, #f0f0f0 0%, #fe2c55 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #ffffff;
+        }
+        .subtitulo-epico-polo {
+            text-align: center;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--color-texto-medio, #333);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .subtitulo-epico-polo .linea-2 {
             display: block;
-            width: 100%;
-            height: 210px;
-            border-radius: 18px;
-            overflow: hidden;
-            text-decoration: none;
-            box-shadow: 0 6px 24px rgba(255,107,107,0.4);
-            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-        }
-        .btn-velas-kukumita:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(255,107,107,0.5);
-            opacity: 0.95;
-        }
-        body.modo-oscuro .btn-velas-kukumita {
-            box-shadow: 0 6px 24px rgba(255,107,107,0.2);
-        }
-        @media (max-width: 700px) {
-            .btn-velas-kukumita { height: auto; min-height: 120px; border-radius: 14px; }
+            margin-top: 2px;
+            color: var(--color-texto-suave, #666);
+            font-weight: 500;
         }
         .grilla-familia {
             display: grid;
@@ -263,7 +288,7 @@
             display: inline-block;
             padding: 8px 16px;
             background-color: #222;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             text-decoration: none;
             font-size: 13px;
             font-weight: bold;
@@ -298,7 +323,7 @@
         .btn-filtro-plataforma.activo {
             background: #222;
             border-color: #222;
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
         }
         .btn-filtro-plataforma.yt.activo { background:#FF0000; border-color:#FF0000; }
         .btn-filtro-plataforma.fb.activo { background:#1877F2; border-color:#1877F2; }
@@ -347,7 +372,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(254, 44, 85, 0.9);
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -396,7 +421,7 @@
         .btn-modo.activo {
             background-color: #333;
             border-color: #333;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
         }
         .btn-modo:hover:not(.activo) {
             border-color: #999;
@@ -425,7 +450,7 @@
         .btn-tipo-precio.activo {
             background-color: #333;
             border-color: #333;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
         }
         .btn-tipo-precio.bazar {
             background-color: #f0fff4;
@@ -435,7 +460,7 @@
         .btn-tipo-precio.bazar.activo {
             background-color: #4caf50;
             border-color: #4caf50;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
         }
         .btn-tipo-precio:hover:not(.activo) {
             border-color: #999;
@@ -474,10 +499,10 @@
         .btn-subfiltro.activo {
             background: #fe2c55;
             border-color: #fe2c55;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
         }
             background-color: #333;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
         }
 
         /* CONTENEDOR DE PRECIOS */
@@ -513,7 +538,7 @@
         }
         .btn-precio:hover, .btn-precio.activo {
             background-color: #fe2c55;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             border-color: #fe2c55;
         }
 
@@ -538,11 +563,15 @@
 
         /* TARJETA DE PRODUCTO — toda la card es clickeable */
         .producto-card {
-            background-color: white;
+            background-color: #181a30;
+            background-image:
+                radial-gradient(circle at 15% 0%, rgba(255, 130, 180, 0.22) 0%, transparent 60%),
+                radial-gradient(circle at 85% 100%, rgba(90, 140, 230, 0.24) 0%, transparent 60%),
+                linear-gradient(160deg, #1c1d36 0%, #181a30 55%, #14152c 100%);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0,0,0,0.07);
-            border: 1px solid #e0e0e0;
+            border: 1px solid #3a3a5a;
             display: flex;
             flex-direction: column;
             cursor: pointer;
@@ -649,7 +678,7 @@
         }
         .precio-bazar-badge {
             background-color: #2ea44f;
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             font-size: 13px;
             font-weight: 800;
             padding: 3px 7px;
@@ -665,6 +694,75 @@
             padding: 6px 0 10px;
             letter-spacing: 0.3px;
         }
+
+        /* ── TARJETA DE PROYECTO (layout horizontal: imagen ancha a la izquierda) ── */
+        .proyecto-card {
+            flex-direction: row !important;
+            align-items: stretch;
+            min-height: 108px;
+        }
+        .proyecto-card .producto-img {
+            width: 160px;
+            min-width: 160px;
+            height: 108px;
+            flex-shrink: 0;
+        }
+        .proyecto-card .producto-info {
+            padding: 10px 14px;
+            justify-content: center;
+            flex-grow: 1;
+            min-width: 0;
+        }
+        .proyecto-card .producto-titulo {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .proyecto-descripcion-corta {
+            font-size: 12.5px;
+            color: #999;
+            line-height: 1.4;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        body.modo-oscuro .proyecto-descripcion-corta { color: #aaa; }
+        @media (max-width: 480px) {
+            .proyecto-card .producto-img { width: 110px; min-width: 110px; height: 90px; }
+        }
+
+        /* ── GALERÍA DE MEDIOS EXTRA DENTRO DEL MODAL DE PROYECTO ── */
+        .proyecto-media-lista {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .proyecto-media-item img,
+        .proyecto-media-item .mp-video-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            object-fit: cover;
+        }
+        .proyecto-media-item .mp-video-wrapper {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+        .proyecto-media-item .mp-video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .proyecto-media-caption {
+            font-size: 12.5px;
+            color: #777;
+            margin: 8px 0 0 0;
+            line-height: 1.5;
+            font-style: italic;
+        }
+        body.modo-oscuro .proyecto-media-caption { color: #aaa; }
 
         /* Mensaje cuando no hay productos */
         .sin-resultados {
@@ -739,7 +837,7 @@
             width: 34px; height: 34px;
             border-radius: 50%;
             background: rgba(0,0,0,0.45);
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             border: none;
             font-size: 18px;
             line-height: 34px;
@@ -753,12 +851,13 @@
         .mp-video-placeholder {
             position: relative;
             width: 100%;
-            min-height: 280px;
+            aspect-ratio: 16 / 9;
             background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            overflow: hidden;
         }
         .mp-video-placeholder img {
             position: absolute;
@@ -773,12 +872,70 @@
             width: 64px; height: 64px;
             border-radius: 50%;
             background: rgba(0,0,0,0.55);
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 26px;
         }
+
+        /* ── REPRODUCTOR (iframe) — mantiene la proporción real del video,
+             así nunca queda descuadrado ni deja franjas negras de más ── */
+        .mp-video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #111;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .mp-video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .mp-video-wrapper.aspecto-16-9 { aspect-ratio: 16 / 9; }
+        .mp-video-wrapper.aspecto-9-16 { aspect-ratio: 9 / 16; max-height: 80vh; margin: 0 auto; }
+
+        /* ── COMENTARIOS PÚBLICOS DE VIDEO ── */
+        .mp-comentarios {
+            padding: 4px 20px 20px 20px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        body.modo-oscuro .mp-comentarios { border-top-color: rgba(255,255,255,0.1); }
+        .mp-comentarios-titulo {
+            font-size: 16px;
+            margin: 16px 0 10px 0;
+            color: #1a1a1a;
+        }
+        .mp-comentario-input {
+            width: 100%;
+            min-height: 60px;
+            max-height: 160px;
+            border-radius: 10px;
+            border: 1.5px solid #ddd;
+            padding: 10px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+        body.modo-oscuro .mp-comentario-input { background: #1e1e1e; border-color: #444; color: #eee; }
+        .mp-lista-comentarios { margin-top: 14px; display: flex; flex-direction: column; gap: 14px; }
+        .mp-comentario-item { display: flex; gap: 10px; }
+        .mp-comentario-avatar {
+            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+            object-fit: cover; background: #ddd;
+        }
+        .mp-comentario-cuerpo { flex: 1; min-width: 0; }
+        .mp-comentario-nombre { font-weight: 700; font-size: 13.5px; color: #1a1a1a; }
+        .mp-comentario-texto { font-size: 14px; white-space: pre-wrap; word-break: break-word; margin-top: 2px; color: #333; }
+        .mp-comentario-fecha { font-size: 11.5px; color: #888; margin-top: 2px; }
+        .mp-comentario-borrar {
+            border: none; background: none; color: #c00; font-size: 12px; cursor: pointer; padding: 2px 0;
+        }
+        .mp-comentarios-vacio { font-size: 13.5px; color: #888; margin-top: 8px; }
 
         /* ── BOTONES DE PLATAFORMA (YouTube / Facebook / Instagram) ── */
         .mp-plataformas-video {
@@ -831,7 +988,7 @@
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0,0,0,0.4);
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             border: none;
             border-radius: 50%;
             width: 38px; height: 38px;
@@ -959,7 +1116,7 @@
             position: absolute;
             bottom: 0; left: 0; right: 0;
             background: rgba(0,0,0,0.75);
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             font-size: 12px;
             font-weight: 700;
             text-align: center;
@@ -1046,7 +1203,7 @@
             transition: all 0.2s;
         }
         .btn-pagina:hover { border-color: #fe2c55; color: #fe2c55; }
-        .btn-pagina.activo { background: #fe2c55; border-color: #fe2c55; color: white; }
+        .btn-pagina.activo { background: #fe2c55; border-color: #fe2c55; color: white; text-shadow: var(--trazo-negro); }
         .btn-pagina:disabled { opacity: 0.35; cursor: default; border-color: #eee; }
         .paginacion-info {
             font-size: 13px;
@@ -1055,7 +1212,91 @@
             margin-bottom: 40px;
         }
         body.modo-oscuro .btn-pagina { background: #1e1e1e; border-color: #444; color: #ccc; }
-        body.modo-oscuro .btn-pagina.activo { background: #fe2c55; border-color: #fe2c55; color: white; }
+        body.modo-oscuro .btn-pagina.activo { background: #fe2c55; border-color: #fe2c55; color: white; text-shadow: var(--trazo-negro); }
+
+        /* ── BOTONES DE NAVEGACIÓN PRINCIPAL (Bio / Videos / Proyectos) ── */
+        .nav-seccion-btn {
+            padding: 20px 56px;
+            border-radius: 0;
+            border: 2px solid #fe2c55;
+            background: #fff;
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        /* Colores de acento por botón (usados por el fondo de manchas al presionar/hover) */
+        #btn-biografia  { --org-a: #c81c34; --org-b: #0c0c0c; }
+        #btn-musica     { --org-a: #0c0c0c; --org-b: #8a3fd1; }
+        #btn-tutoriales { --org-a: #0d1b3d; --org-b: #ff5fa8; }
+        #btn-proyectos  { --org-a: #0d1b3d; --org-b: #4fb8ff; }
+
+        .nav-seccion-btn:hover:not(.activo),
+        .nav-seccion-btn.activo {
+            background-image:
+                radial-gradient(circle at 20% 25%, var(--org-a) 0%, var(--org-a) 40%, transparent 56%),
+                radial-gradient(circle at 82% 20%, var(--org-b) 0%, var(--org-b) 38%, transparent 54%),
+                radial-gradient(circle at 25% 82%, var(--org-b) 0%, var(--org-b) 36%, transparent 52%),
+                radial-gradient(circle at 80% 80%, var(--org-a) 0%, var(--org-a) 38%, transparent 54%),
+                linear-gradient(135deg, var(--org-a) 0%, var(--org-b) 100%);
+            border-color: var(--org-b);
+            color: #fff; text-shadow: var(--trazo-negro);
+        }
+        .nav-seccion-btn.activo:hover { filter: brightness(1.08); }
+        @media (max-width: 700px) {
+            .nav-seccion-btn { padding: 10px 18px; font-size: 13px; }
+        }
+
+        /* ── FONDO ANIMADO POR SECCIÓN ── */
+        #fondo-animado {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .fondo-capa {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 18% 22%, var(--org-a) 0%, var(--org-a) 42%, transparent 58%),
+                radial-gradient(circle at 84% 18%, var(--org-b) 0%, var(--org-b) 40%, transparent 56%),
+                radial-gradient(circle at 22% 84%, var(--org-b) 0%, var(--org-b) 38%, transparent 54%),
+                radial-gradient(circle at 82% 82%, var(--org-a) 0%, var(--org-a) 40%, transparent 56%),
+                linear-gradient(135deg, var(--org-a) 0%, var(--org-b) 100%);
+            background-size: 400% 400%;
+            animation: fondoDesplazar 16s ease infinite;
+            opacity: 0;
+            transition: opacity 1.1s ease;
+        }
+        .fondo-capa.activa { opacity: 1; }
+        /* Biografía: manchas rojas y negras, con fusión sutil en las esquinas */
+        #fondo-bio {
+            --org-a: #c81c34;
+            --org-b: #0c0c0c;
+        }
+        /* Videos: manchas negras y moradas */
+        #fondo-videos {
+            --org-a: #0c0c0c;
+            --org-b: #8a3fd1;
+        }
+        /* Tutoriales: manchas azul oscuro y rosa */
+        #fondo-tutoriales {
+            --org-a: #0d1b3d;
+            --org-b: #ff5fa8;
+        }
+        /* Proyectos: manchas azul oscuro y azul claro */
+        #fondo-proyectos {
+            --org-a: #0d1b3d;
+            --org-b: #4fb8ff;
+        }
+        @keyframes fondoDesplazar {
+            0%   { background-position: 0% 50%; }
+            25%  { background-position: 100% 20%; }
+            50%  { background-position: 100% 100%; }
+            75%  { background-position: 0% 80%; }
+            100% { background-position: 0% 50%; }
+        }
 
         /* ── BÚSQUEDA DEL CATÁLOGO ── */
         .busqueda-catalogo {
@@ -1185,7 +1426,7 @@
             padding: 18px 20px;
             background: #fafafa; border: 1.5px solid #eee;
             border-radius: 14px; font-size: 16px; font-weight: 600;
-            color: var(--color-texto); cursor: pointer; transition: all 0.2s; text-align: left;
+            color: #1a1a1a; cursor: pointer; transition: all 0.2s; text-align: left;
         }
         .btn-opcion-perfil:hover { background: #fff0f3; border-color: #fe2c55; color: #fe2c55; }
         .btn-opcion-perfil .op-icono { font-size: 24px; }
@@ -1207,7 +1448,7 @@
         .btn-mp-whatsapp {
             padding: 22px 10px;
             background: #25D366;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             font-weight: 700;
             font-size: 16px;
             border-radius: 12px;
@@ -1276,7 +1517,7 @@
             justify-content: center;
             padding: 12px;
             text-decoration: none;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             font-weight: bold;
             border-radius: 8px;
             font-size: 15px;
@@ -1308,7 +1549,12 @@
             width: 300px;
             max-width: 85vw;
             height: 100%;
-            background: #fff;
+            background-color: #1e1530;
+            background-image:
+                radial-gradient(circle at 15% 10%, rgba(255, 140, 190, 0.26) 0%, transparent 55%),
+                radial-gradient(circle at 85% 90%, rgba(90, 140, 230, 0.28) 0%, transparent 55%),
+                linear-gradient(160deg, #241934 0%, #1c1530 50%, #161228 100%);
+            color: #f0e8ee;
             z-index: 2001;
             display: flex;
             flex-direction: column;
@@ -1324,7 +1570,7 @@
             top: 14px; left: 14px;
             z-index: 1999;
             background: #111;
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             border: none;
             border-radius: 10px;
             width: 44px; height: 44px;
@@ -1341,23 +1587,23 @@
             align-items: center;
             justify-content: space-between;
             padding: 18px 16px 12px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
             flex-shrink: 0;
         }
         .drawer-header-titulo { font-size: 17px; font-weight: 700; color: var(--color-texto); }
         .btn-cerrar-drawer {
             background: none; border: none; font-size: 22px;
-            cursor: pointer; color: #666; padding: 4px 8px; border-radius: 6px;
+            cursor: pointer; color: #d8c8d2; padding: 4px 8px; border-radius: 6px;
         }
-        .btn-cerrar-drawer:hover { background: #f0f0f0; }
+        .btn-cerrar-drawer:hover { background: rgba(255,255,255,0.08); }
 
         .drawer-perfil {
             display: flex; align-items: center; gap: 12px;
-            padding: 16px; background: #fafafa;
-            border-bottom: 1px solid #eee;
+            padding: 16px; background: rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
             cursor: pointer; transition: background 0.2s;
         }
-        .drawer-perfil:hover { background: #f0f0f0; }
+        .drawer-perfil:hover { background: rgba(255,255,255,0.08); }
         .drawer-avatar {
             width: 48px; height: 48px; border-radius: 50%;
             background: #ddd; object-fit: cover;
@@ -1381,7 +1627,7 @@
         }
         .drawer-input-busqueda:focus { border-color: #fe2c55; }
         .btn-buscar {
-            padding: 10px 14px; background: #111; color: #fff;
+            padding: 10px 14px; background: #111; color: #fff; text-shadow: var(--trazo-negro);
             border: none; border-radius: 8px; font-size: 14px;
             cursor: pointer; transition: background 0.2s;
         }
@@ -1417,15 +1663,15 @@
 
         .drawer-espaciador { flex: 1; min-height: 20px; }
 
-        .drawer-config { padding: 16px; border-top: 1px solid #eee; flex-shrink: 0; }
+        .drawer-config { padding: 16px; border-top: 1px solid rgba(255,255,255,0.12); flex-shrink: 0; }
         .btn-drawer-config {
             display: flex; align-items: center; gap: 10px;
             width: 100%; padding: 11px 14px;
-            background: #f5f5f5; border: none; border-radius: 10px;
+            background: rgba(255,255,255,0.06); border: none; border-radius: 10px;
             font-size: 14px; font-weight: 600; color: var(--color-texto-medio);
             cursor: pointer; transition: background 0.2s; text-align: left;
         }
-        .btn-drawer-config:hover { background: #ffe8ec; color: #fe2c55; }
+        .btn-drawer-config:hover { background: rgba(254,44,85,0.18); color: #fe2c55; }
         .btn-drawer-config .icono { font-size: 18px; }
 
         .drawer-subpanel { display: none; padding: 0 16px 12px; animation: fadeIn 0.2s ease; }
@@ -1435,11 +1681,11 @@
         .drawer-sub-btn {
             display: flex; align-items: center; gap: 10px;
             width: 100%; padding: 10px 12px;
-            background: none; border: 1px solid #eee; border-radius: 8px;
-            font-size: 13px; font-weight: 600; color: #444;
+            background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+            font-size: 13px; font-weight: 600; color: #e6d8e2;
             cursor: pointer; margin-bottom: 8px; transition: all 0.2s; text-align: left;
         }
-        .drawer-sub-btn:hover { background: #fff0f3; border-color: #fe2c55; color: #fe2c55; }
+        .drawer-sub-btn:hover { background: rgba(254,44,85,0.15); border-color: #fe2c55; color: #fe2c55; }
 
         .drawer-subsubpanel {
             display: none; padding: 8px 0 4px 12px;
@@ -1447,13 +1693,13 @@
             animation: fadeIn 0.2s ease;
         }
         .drawer-subsubpanel.visible { display: block; }
-        .drawer-subsubpanel .drawer-sub-btn { font-size: 12px; padding: 8px 10px; color: #555; }
+        .drawer-subsubpanel .drawer-sub-btn { font-size: 12px; padding: 8px 10px; color: #cbbcc6; }
 
         .toggle-modo {
             display: flex; align-items: center; justify-content: space-between;
             width: 100%; padding: 10px 12px;
-            background: none; border: 1px solid #eee; border-radius: 8px;
-            font-size: 13px; font-weight: 600; color: #444;
+            background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+            font-size: 13px; font-weight: 600; color: #e6d8e2;
             cursor: pointer; margin-bottom: 8px;
         }
         .toggle-interruptor {
@@ -1473,7 +1719,7 @@
         body.modo-oscuro .seccion-precios { background: #1a1a1a; }
         body.modo-oscuro .btn-filtro { background: #1e1e1e; border-color: #555; color: #ccc; }
         body.modo-oscuro .btn-filtro:hover,
-        body.modo-oscuro .btn-filtro.activo { background: #555; color: #fff; border-color: #555; }
+        body.modo-oscuro .btn-filtro.activo { background: #555; color: #fff; text-shadow: var(--trazo-negro); border-color: #555; }
         body.modo-oscuro .btn-precio { background: #2a2a2a; border-color: #444; color: #ccc; }
         body.modo-oscuro .modal-producto-contenido,
         body.modo-oscuro .modal-contenido { background: #1e1e1e; border-color: #333; color: #e0e0e0; }
@@ -1536,8 +1782,12 @@
             gap: 8px;
             flex-wrap: wrap;
             padding: 14px 16px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
+            background-color: #14182e;
+            background-image:
+                radial-gradient(circle at 8% 50%, rgba(255, 130, 180, 0.30) 0%, transparent 55%),
+                radial-gradient(circle at 92% 50%, rgba(90, 140, 230, 0.32) 0%, transparent 55%),
+                linear-gradient(100deg, #1c1d36 0%, #181a30 50%, #16182c 100%);
+            border-bottom: 1px solid #3a3a5a;
         }
         .red-social {
             display: flex;
@@ -1548,7 +1798,7 @@
             text-decoration: none;
             font-size: 12px;
             font-weight: 600;
-            color: white;
+            color: white; text-shadow: var(--trazo-negro);
             transition: transform 0.2s, filter 0.2s;
             white-space: nowrap;
         }
@@ -1602,7 +1852,7 @@
         .footer-logo {
             font-size: 20px;
             font-weight: 700;
-            color: #fff;
+            color: #fff; text-shadow: var(--trazo-negro);
             display: block;
             margin-bottom: 8px;
         }
@@ -1642,10 +1892,10 @@
         }
     
         @media (max-width: 700px) {
-            #btn-biografia, #btn-musica, #btn-proyectos {
+            #btn-biografia, #btn-musica, #btn-tutoriales, #btn-proyectos {
                 padding: 10px 18px !important;
                 font-size: 13px !important;
-                border-radius: 22px !important;
+                border-radius: 0 !important;
                 border-width: 2px !important;
             }
         }
@@ -1694,16 +1944,317 @@
         }
         .btn-copiar-qr {
             display: inline-flex; align-items: center; gap: 8px;
-            margin-top: 14px; background: #6b4f8a; color: white;
+            margin-top: 14px; background: #6b4f8a; color: white; text-shadow: var(--trazo-negro);
             border: none; border-radius: 30px; padding: 10px 22px;
             font-size: 0.9rem; font-weight: 600; cursor: pointer;
             font-family: inherit; transition: background 0.2s, transform 0.15s;
         }
         .btn-copiar-qr:hover { background: #8a68a8; transform: translateY(-1px); }
 
+
+        /* ══════════════════════════════════════════════
+           BARRA DE COOKIES (tope de pantalla)
+        ══════════════════════════════════════════════ */
+        #barraCookies {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #111;
+            color: #fff; text-shadow: var(--trazo-negro);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 6px 14px;
+            font-size: 0.72rem;
+            line-height: 1.3;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        #barraCookies.oculta {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #barraCookiesTexto {
+            flex: 1;
+            min-width: 0;
+        }
+        #barraCookiesBotones {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        #btnVerAvisoBar {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.45);
+            color: #fff; text-shadow: var(--trazo-negro);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.68rem;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s;
+        }
+        #btnVerAvisoBar:hover { background: rgba(255,255,255,0.12); }
+        #btnAceptarCookies {
+            background: #fe2c55;
+            border: none;
+            color: #fff; text-shadow: var(--trazo-negro);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s;
+        }
+        #btnAceptarCookies:hover { background: #d81f43; }
+        body.modo-oscuro #barraCookies { background: #0a0a0a; border-bottom: 1px solid #333; }
+
+        /* ══════════════════════════════════════════════
+           PANTALLA COMPLETA — AVISO DE PRIVACIDAD
+        ══════════════════════════════════════════════ */
+        #pantallaPrivacidad {
+            position: fixed;
+            inset: 0;
+            z-index: 9500;
+            background: #fdfdfd;
+            display: none;          /* JS lo cambia a flex al abrir */
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+            overflow: hidden;
+        }
+        #pantallaPrivacidad.abierta {
+            transform: translateX(0);
+        }
+        .privacidad-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: #fff;
+            border-bottom: 1.5px solid #eee;
+            flex-shrink: 0;
+        }
+        .btn-volver-privacidad {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #fe2c55;
+            cursor: pointer;
+            padding: 2px 10px 2px 0;
+            font-family: inherit;
+            font-weight: 700;
+            min-width: 90px;
+            text-align: left;
+        }
+        .btn-volver-privacidad:hover { color: #d81f43; }
+        .privacidad-titulo {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-align: center;
+            flex: 1;
+        }
+        .privacidad-body {
+            overflow-y: auto;
+            padding: 20px 20px 56px;
+            flex: 1;
+            -webkit-overflow-scrolling: touch;
+        }
+        .privacidad-fecha {
+            font-size: 0.73rem;
+            color: #aaa;
+            margin-bottom: 18px;
+        }
+        .privacidad-seccion-titulo {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin: 22px 0 8px;
+            padding-bottom: 5px;
+            border-bottom: 1.5px solid #eee;
+        }
+        .privacidad-parrafo {
+            font-size: 0.81rem;
+            color: #444;
+            line-height: 1.68;
+            margin-bottom: 9px;
+        }
+        .privacidad-lista {
+            font-size: 0.81rem;
+            color: #444;
+            line-height: 1.7;
+            padding-left: 18px;
+            margin-bottom: 9px;
+        }
+        .privacidad-lista li { margin-bottom: 4px; }
+        .privacidad-enlace { color: #fe2c55; text-decoration: underline; }
+        .privacidad-enlace:hover { color: #d81f43; }
+        .privacidad-aceptar-bloque {
+            margin-top: 28px;
+            padding: 20px 16px;
+            background: #fff5f7;
+            border: 2px solid #ffd0da;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .privacidad-btn-aceptar {
+            background: #fe2c55;
+            color: #fff; text-shadow: var(--trazo-negro);
+            border: none;
+            border-radius: 999px;
+            padding: 12px 32px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .privacidad-btn-aceptar:hover { background: #d81f43; }
+        .privacidad-nota-aceptar {
+            font-size: 0.71rem;
+            color: #999;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* Modo oscuro — pantalla privacidad */
+        body.modo-oscuro #pantallaPrivacidad { background: #121212; }
+        body.modo-oscuro .privacidad-header { background: #1a1a1a; border-bottom-color: #333; }
+        body.modo-oscuro .privacidad-titulo { color: #f0f0f0; }
+        body.modo-oscuro .btn-volver-privacidad { color: #fe2c55; }
+        body.modo-oscuro .privacidad-seccion-titulo { color: #f0f0f0; border-bottom-color: #333; }
+        body.modo-oscuro .privacidad-parrafo,
+        body.modo-oscuro .privacidad-lista { color: #ccc; }
+        body.modo-oscuro .privacidad-aceptar-bloque { background: #1e1015; border-color: #3a1f28; }
+        body.modo-oscuro .privacidad-nota-aceptar { color: #888; }
+
+        /* Botón de privacidad dentro del drawer */
+        .btn-privacidad-drawer {
+            background: #f5f5f5 !important;
+            border-color: #ddd !important;
+            color: #444 !important;
+        }
+        .btn-privacidad-drawer:hover {
+            background: #fff0f3 !important;
+            border-color: #fe2c55 !important;
+            color: #fe2c55 !important;
+        }
+        body.modo-oscuro .btn-privacidad-drawer {
+            background: #1a1a1a !important;
+            border-color: #333 !important;
+            color: #ccc !important;
+        }
+        body.modo-oscuro .btn-privacidad-drawer:hover { background: #2a1218 !important; border-color: #fe2c55 !important; color: #fe2c55 !important; }
+
         </style>
 </head>
-<body class="modo-oscuro">
+<body>
+
+    <!-- ══════════════════════════════════════════════════════
+         BARRA DE COOKIES (tope de pantalla, siempre visible)
+         ══════════════════════════════════════════════════════ -->
+    <div id="barraCookies">
+        <span id="barraCookiesTexto">🍪 Usamos cookies y almacenamiento local para mejorar tu experiencia.</span>
+        <div id="barraCookiesBotones">
+            <button id="btnVerAvisoBar" onclick="abrirPantallaPrivacidad()">Aviso de privacidad</button>
+            <button id="btnAceptarCookies" onclick="aceptarCookies()">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PANTALLA COMPLETA — AVISO DE PRIVACIDAD Y COOKIES
+         ══════════════════════════════════════════════════════ -->
+    <div id="pantallaPrivacidad" style="display:none;">
+        <div class="privacidad-header">
+            <button class="btn-volver-privacidad" onclick="cerrarPantallaPrivacidad()">‹ Regresar</button>
+            <span class="privacidad-titulo">Aviso de Privacidad y Cookies</span>
+            <div style="width:90px;"></div>
+        </div>
+        <div class="privacidad-body">
+
+            <p class="privacidad-fecha">Última actualización: junio 2026</p>
+
+            <h2 class="privacidad-seccion-titulo">1. Responsable del tratamiento de datos</h2>
+            <p class="privacidad-parrafo">
+                <strong>El Polo Dancer</strong> (en adelante "nosotros" o "el sitio") es el responsable del tratamiento de los datos personales que se recaben a través de este sitio web, de conformidad con la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y su Reglamento.
+            </p>
+            <p class="privacidad-parrafo">Para cualquier consulta o ejercicio de derechos, puedes contactarnos a través de nuestras redes sociales oficiales indicadas en este sitio.</p>
+
+            <h2 class="privacidad-seccion-titulo">2. Datos personales que recopilamos</h2>
+            <p class="privacidad-parrafo">Únicamente recopilamos datos cuando el usuario elige iniciar sesión de forma voluntaria con su cuenta de Google. Los datos que se obtienen son:</p>
+            <ul class="privacidad-lista">
+                <li><strong>Nombre o nombre para mostrar</strong> — proporcionado por tu cuenta de Google.</li>
+                <li><strong>Correo electrónico</strong> — proporcionado por tu cuenta de Google.</li>
+                <li><strong>Foto de perfil</strong> — la imagen pública asociada a tu cuenta de Google.</li>
+                <li><strong>Comentarios públicos</strong> — el texto que decidas publicar en los videos.</li>
+            </ul>
+            <p class="privacidad-parrafo">Si no inicias sesión, <strong>no recopilamos ningún dato personal identificable</strong>. Solo guardamos en tu dispositivo tu preferencia de modo oscuro.</p>
+
+            <h2 class="privacidad-seccion-titulo">3. Finalidad del tratamiento</h2>
+            <ul class="privacidad-lista">
+                <li>Identificarte dentro de la plataforma y mostrar tu nombre y foto de perfil.</li>
+                <li>Permitirte publicar y gestionar tus propios comentarios en los videos.</li>
+                <li>Guardar preferencias de visualización (modo oscuro).</li>
+            </ul>
+            <p class="privacidad-parrafo">No utilizamos tus datos con fines publicitarios, ni los vendemos o cedemos a terceros con fines comerciales.</p>
+
+            <h2 class="privacidad-seccion-titulo">4. Terceros involucrados en el tratamiento</h2>
+            <p class="privacidad-parrafo">Para operar este sitio utilizamos servicios de terceros que pueden procesar datos técnicos o personales:</p>
+            <ul class="privacidad-lista">
+                <li><strong>Google Firebase</strong> (Authentication y Firestore) — autenticación de usuarios y almacenamiento de comentarios. Sujeto a la <a class="privacidad-enlace" href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Política de Privacidad de Google Firebase</a>.</li>
+                <li><strong>Google Fonts</strong> — carga de tipografías desde servidores de Google, lo que puede transmitir tu dirección IP a Google al cargar la página.</li>
+                <li><strong>YouTube, Facebook e Instagram</strong> — los videos se reproducen mediante reproductores embebidos de estas plataformas, sujetos a sus propias políticas de privacidad.</li>
+            </ul>
+            <p class="privacidad-parrafo">Al utilizar este sitio, reconoces que estos servicios operan bajo sus propias políticas de privacidad, sobre las cuales El Polo Dancer no tiene control directo.</p>
+
+            <h2 class="privacidad-seccion-titulo">5. Uso de cookies y almacenamiento local</h2>
+            <p class="privacidad-parrafo">Este sitio <strong>no utiliza cookies propias</strong> de rastreo o publicidad. Sin embargo, utiliza <strong>almacenamiento local del navegador (localStorage)</strong> para guardar:</p>
+            <ul class="privacidad-lista">
+                <li>Preferencia de modo oscuro o claro.</li>
+                <li>Confirmación de que ya leíste este aviso.</li>
+            </ul>
+            <p class="privacidad-parrafo">Estos datos <strong>no salen de tu dispositivo</strong> salvo los que Firebase gestiona para la autenticación y los comentarios. Puedes eliminarlos en cualquier momento limpiando el almacenamiento del navegador en la configuración de tu dispositivo.</p>
+
+            <h2 class="privacidad-seccion-titulo">6. Si ignoras o no aceptas este aviso</h2>
+            <p class="privacidad-parrafo">
+                El uso continuado de este sitio web, independientemente de si aceptas o ignoras el presente aviso, implica la interacción con los servicios de infraestructura necesarios para su funcionamiento, en particular <strong>Google Firebase</strong>. En tal caso, el tratamiento de datos técnicos que estos servicios puedan recopilar (como dirección IP o datos de sesión) queda sujeto exclusivamente a las <strong>Políticas de Privacidad y Términos de Servicio de Google</strong>, disponibles en <a class="privacidad-enlace" href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+            </p>
+            <p class="privacidad-parrafo">
+                El Polo Dancer <strong>no asume responsabilidad</strong> por el tratamiento de datos que Google, Firebase o las plataformas de video realicen en el marco de sus propios servicios.
+            </p>
+
+            <h2 class="privacidad-seccion-titulo">7. Derechos ARCO</h2>
+            <p class="privacidad-parrafo">Tienes derecho a <strong>Acceder, Rectificar, Cancelar u Oponerte</strong> al tratamiento de tus datos personales. Para ejercerlos, contáctanos por nuestras redes sociales oficiales indicando tu nombre y el dato que deseas corregir o eliminar.</p>
+            <p class="privacidad-parrafo">Daremos respuesta en un plazo máximo de <strong>20 días hábiles</strong>, conforme a lo establecido por la LFPDPPP.</p>
+
+            <h2 class="privacidad-seccion-titulo">8. Cambios a este aviso</h2>
+            <p class="privacidad-parrafo">Nos reservamos el derecho de actualizar este aviso en cualquier momento. Cualquier modificación será publicada en esta misma página con una nueva fecha de actualización.</p>
+
+            <div class="privacidad-aceptar-bloque">
+                <button class="privacidad-btn-aceptar" onclick="aceptarCookies(); cerrarPantallaPrivacidad();">
+                    ✅ Entendido y acepto
+                </button>
+                <p class="privacidad-nota-aceptar">Al presionar este botón confirmas que leíste y aceptas este aviso de privacidad.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fondo animado por sección -->
+    <div id="fondo-animado" aria-hidden="true">
+        <div class="fondo-capa activa" id="fondo-bio"></div>
+        <div class="fondo-capa" id="fondo-videos"></div>
+        <div class="fondo-capa" id="fondo-tutoriales"></div>
+        <div class="fondo-capa" id="fondo-proyectos"></div>
+    </div>
 
     <!-- ══ BOTÓN ABRIR DRAWER ══ -->
     <button class="btn-abrir-drawer" onclick="abrirDrawer()" aria-label="Abrir menú">☰</button>
@@ -1716,35 +2267,42 @@
             <div style="width:42px;"></div>
         </div>
         <div class="pantalla-perfil-body">
-            <img class="pantalla-avatar-grande" id="pantallaAvatar" src=""
-                 alt="Foto de perfil" onclick="elegirFotoGaleria()"
-                 onerror="this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'110\' height=\'110\'><rect width=\'110\' height=\'110\' fill=\'%23eee\' rx=\'55\'/><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-size=\'48\' fill=\'%23bbb\'>👤</text></svg>')">
-            <input type="file" id="inputFotoPerfil" accept="image/*" style="display:none" onchange="aplicarFotoPerfil(event)">
-            <p class="pantalla-usuario-nombre" id="pantallaUsuarioNombre">Invitado</p>
 
-            <button class="btn-opcion-perfil" onclick="elegirFotoGaleria()">
-                <span class="op-icono">🖼️</span>
-                <div>
-                    Cambiar foto de perfil
-                    <span class="op-sub">Elige una imagen desde tu galería</span>
-                </div>
-            </button>
+            <!-- ═══ Estado: SIN sesión iniciada ═══ -->
+            <div id="pantallaPerfilInvitado" style="display:none;text-align:center;padding:24px 0;">
+                <p style="font-size:16px;color:#666;margin-bottom:24px;">
+                    Inicia sesión con tu cuenta de Google para personalizar tu perfil y dejar comentarios.
+                </p>
+                <button class="btn-opcion-perfil" onclick="iniciarSesionGoogle()" style="justify-content:center;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" style="margin-right:8px;"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    Iniciar sesión con Google
+                </button>
+            </div>
 
-            <button class="btn-opcion-perfil" onclick="alert('Cambio de nombre de usuario — próximamente con Firebase.')">
-                <span class="op-icono">✏️</span>
-                <div>
-                    Nombre de usuario
-                    <span class="op-sub">Modifica cómo aparece tu nombre</span>
-                </div>
-            </button>
+            <!-- ═══ Estado: CON sesión iniciada ═══ -->
+            <div id="pantallaPerfilUsuario" style="display:none;">
+                <img class="pantalla-avatar-grande" id="pantallaAvatar" src=""
+                     alt="Foto de perfil"
+                     onerror="this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'110\' height=\'110\'><rect width=\'110\' height=\'110\' fill=\'%23eee\' rx=\'55\'/><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-size=\'48\' fill=\'%23bbb\'>👤</text></svg>')">
+                <p class="pantalla-usuario-nombre" id="pantallaUsuarioNombre">Usuario</p>
 
-            <button class="btn-opcion-perfil" onclick="alert('Cambio de contraseña — próximamente con Firebase.')">
-                <span class="op-icono">🔒</span>
-                <div>
-                    Contraseña
-                    <span class="op-sub">Actualiza tu contraseña de acceso</span>
-                </div>
-            </button>
+                <button class="btn-opcion-perfil" onclick="cambiarNombreUsuario()">
+                    <span class="op-icono">✏️</span>
+                    <div>
+                        Nombre de usuario
+                        <span class="op-sub">Modifica cómo aparece tu nombre</span>
+                    </div>
+                </button>
+
+                <button class="btn-opcion-perfil" onclick="cerrarSesionGoogle()">
+                    <span class="op-icono">🚪</span>
+                    <div>
+                        Cerrar sesión
+                        <span class="op-sub">Tu cuenta de Google sigue protegida por Google</span>
+                    </div>
+                </button>
+            </div>
+
         </div>
     </div>
 
@@ -1756,39 +2314,33 @@
 
         <!-- Cabecera -->
         <div class="drawer-header">
-            <span class="drawer-header-titulo">🏺 Yesos Polo</span>
+            <span class="drawer-header-titulo" id="drawerHeaderTitulo">Inicia Sesión</span>
             <button class="btn-cerrar-drawer" onclick="cerrarDrawer()">✕</button>
         </div>
 
-        <!-- Perfil -->
-        <div class="drawer-perfil" onclick="abrirPantallaPerfil()">
+        <!-- Perfil (usuario con sesión iniciada) -->
+        <div class="drawer-perfil" id="drawerPerfilLogueado" onclick="abrirPantallaPerfil()" style="display:none;">
             <img class="drawer-avatar" id="drawerAvatar" src="" alt="Perfil"
                  onerror="this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'><rect width=\'48\' height=\'48\' fill=\'%23ddd\' rx=\'24\'/><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-size=\'22\' fill=\'%23aaa\'>👤</text></svg>')">
             <div class="drawer-perfil-info">
-                <p class="drawer-perfil-nombre" id="drawerNombreUsuario">Invitado</p>
+                <p class="drawer-perfil-nombre" id="drawerNombreUsuario">Usuario</p>
                 <p class="drawer-perfil-sub">Toca para editar tu perfil</p>
             </div>
             <span class="drawer-perfil-flecha">›</span>
         </div>
 
-        <!-- Búsqueda -->
-        <div class="drawer-seccion">
-            <p class="drawer-seccion-titulo">🔍 Buscar producto</p>
-            <div class="drawer-busqueda-fila">
-                <input type="text" id="drawerInputBusqueda" class="drawer-input-busqueda"
-                       placeholder="Ej: virgen, osito..."
-                       onkeydown="if(event.key==='Enter') ejecutarBusqueda()">
-                <button class="btn-buscar" onclick="ejecutarBusqueda()">Buscar</button>
+        <!-- Botón de inicio de sesión (sin sesión iniciada) -->
+        <button class="drawer-perfil" id="btnLoginDrawer" onclick="iniciarSesionGoogle()" style="display:flex;width:100%;background:none;border:none;cursor:pointer;text-align:left;">
+            <span style="width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            </span>
+            <div class="drawer-perfil-info">
+                <p class="drawer-perfil-nombre">Iniciar sesión con Google</p>
+                <p class="drawer-perfil-sub">Accede para personalizar tu perfil</p>
             </div>
-        </div>
+        </button>
 
         <!-- Resultados / recomendaciones -->
-        <div class="drawer-recomendaciones" id="drawerResultados">
-            <p class="drawer-rec-titulo" id="drawerRecTitulo">Sugerencias</p>
-            <div id="drawerListaResultados"></div>
-            <p class="drawer-sin-resultados" id="drawerSinResultados">Sin resultados para tu búsqueda.</p>
-        </div>
-
         <div class="drawer-espaciador"></div>
 
         <!-- Configuración -->
@@ -1810,6 +2362,9 @@
                         💬 WhatsApp del negocio
                     </button>
                 </a>
+                <button class="drawer-sub-btn btn-privacidad-drawer" onclick="cerrarDrawer(); abrirPantallaPrivacidad();" style="width:100%; margin-top:6px;">
+                    🔒 Aviso de privacidad y cookies
+                </button>
             </div>
         </div>
 
@@ -1827,19 +2382,19 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             <span>Contrataciones</span>
         </a>
-        <a class="red-social yt" href="https://www.youtube.com/@polodubstep" target="_blank" aria-label="YouTube">
+        <a class="red-social yt" href="https://www.youtube.com/@elpolodancer" target="_blank" aria-label="YouTube">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             <span>YouTube</span>
         </a>
-        <a class="red-social ig" href="https://www.instagram.com/_polodubstep/" target="_blank" aria-label="Instagram">
+        <a class="red-social ig" href="https://www.instagram.com/elpolodancer/" target="_blank" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
             <span>Instagram</span>
         </a>
-        <a class="red-social fb" href="https://www.facebook.com/PoloDubstep" target="_blank" aria-label="Facebook">
+        <a class="red-social fb" href="https://www.facebook.com/elpolodancer" target="_blank" aria-label="Facebook">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             <span>Facebook</span>
         </a>
-        <a class="red-social tt" href="https://www.tiktok.com/@polodusbtep" target="_blank" aria-label="TikTok">
+        <a class="red-social tt" href="https://www.tiktok.com/@elpolodancer?lang=es-419" target="_blank" aria-label="TikTok">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
             <span>TikTok</span>
         </a>
@@ -1851,6 +2406,9 @@
 
     </div>
 
+    <!-- Título principal, arriba de la foto de perfil -->
+    <h1 class="seccion-titulo-bloque titulo-epico-polo" style="margin-top:32px;">El Polo Dancer</h1>
+
     <!-- Foto de perfil circular, justo debajo de la barra de redes sociales -->
     <div class="perfil-avatar-contenedor">
         <div class="perfil-avatar-marco">
@@ -1860,9 +2418,9 @@
 
     <div class="contenedor">
 
-        <!-- Banner victor-recuadro1 -->
+        <!-- Banner Polo Dancer -->
         <div style="margin: 0 0 0 0; width:100%; overflow:hidden;">
-            <img src="imagenes/victor-recuadro1.webp" alt="Polo Dancer"
+            <img src="imagenes/polodancer-recuadro1.webp" alt="Polo Dancer"
                  style="width:100%; display:block; object-fit:cover;"
                  onerror="this.style.display='none'">
         </div>
@@ -1870,12 +2428,16 @@
         <!-- Wrapper relativo para poder anclar el botón al borde izquierdo real -->
         <div style="position:relative;">
 
-            <h1 class="seccion-titulo-bloque" style="margin-top:48px;">Conoce A Polo Dancer</h1>
+            <p class="subtitulo-epico-polo" style="margin-top:-4px;margin-bottom:30px;">
+                Bailarín Profesional de Morelia, Michoacán, México, en Popping Animation Dubstep
+                <span class="linea-2">Y Desarrollador Web, Creador de Este y Otros Sitios Web.</span>
+            </p>
 
             <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:18px 0 40px 0;">
-                <button onclick="toggleBiografia()" id="btn-biografia" style="padding:20px 56px;border-radius:35px;border:3px solid #222;background:#222;color:#fff;font-size:20px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#fe2c55';this.style.borderColor='#fe2c55'" onmouseout="this.style.background='#222';this.style.borderColor='#222'">Biografía</button>
-                <button id="btn-musica" style="padding:20px 56px;border-radius:35px;border:3px solid #222;background:#fff;color:#222;font-size:20px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#fe2c55';this.style.borderColor='#fe2c55';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.borderColor='#222';this.style.color='#222'" onclick="mostrarSeccionMusica()">Videos</button>
-                <button onclick="mostrarSeccion('proyectos')" id="btn-proyectos" style="padding:20px 56px;border-radius:35px;border:3px solid #222;background:#fff;color:#222;font-size:20px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#fe2c55';this.style.borderColor='#fe2c55';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.borderColor='#222';this.style.color='#222'">Proyectos</button>
+                <button onclick="toggleBiografia()" id="btn-biografia" class="nav-seccion-btn">Biografía</button>
+                <button onclick="mostrarSeccionMusica()" id="btn-musica" class="nav-seccion-btn">Videos</button>
+                <button onclick="mostrarSeccion('tutoriales')" id="btn-tutoriales" class="nav-seccion-btn">Tutoriales</button>
+                <button onclick="mostrarSeccion('proyectos')" id="btn-proyectos" class="nav-seccion-btn">Proyectos</button>
             </div>
 
         </div>
@@ -1887,17 +2449,55 @@
             <!-- Layout grid: recuadro izq | texto der -->
             <!-- Texto biográfico -->
             <div style="padding: 0 20px;">
-                <h2 class="bio-titulo">Polo Dancer: Una Década de Dominio Cinético</h2>
-                <p class="bio-parrafo">
-                    Con más de una década de trayectoria ininterrumpida, Polo Dancer se ha convertido en una figura fundamental dentro de la escena del baile urbano. Desde 2014, ha dedicado su carrera a perfeccionar la alquimia técnica entre el Popping, el Animation y la potencia explosiva del Dubstep. Su estilo no es solo una ejecución de pasos, sino un testimonio de evolución.
+                <h2 class="bio-titulo">El Polo Dancer: Bailarín y Desarrollador Web</h2>
+                <p class="bio-parrafo" style="font-weight:700;margin-bottom:6px;">
+                    Sobre el Baile:
                 </p>
                 <p class="bio-parrafo">
-                    Durante estos años, Polo ha refinado un lenguaje corporal donde la precisión técnica se encuentra con la fluidez mecánica. Lo que comenzó como un interés por el movimiento en 2014, hoy se traduce en una técnica madura: cada contracción muscular, cada "pop" y cada secuencia de animation están impregnados de una década de estudio profundo del ritmo y la física del movimiento.
+                    Inicie a bailar en diciembre de 2014, vivía en un pueblo llamado Nuevo Urecho, en Michoacán, y no me gustaban las fiestas por que solo había música banda, y mis gustos eran solo Dubstep, asi que empecé a practicar algo llamado Tektonik, que antes se llamaba Milky Way y hoy en dia se llama Electro dance, sin embargo esto duro poco, por que en 2015 conocí a bailarines como Márquese Scott, Ditto, Popping Jhon, Less Twins y Fik Shun sobre todo, y de sus videos comencé a aprender y a hacer mis propios videos de como empezaba con mi propio baile.
+                </p>
+
+                <!-- Imagen de biografía -->
+                <div style="max-width:480px;margin:34px auto 0 auto;border-radius:18px;overflow:hidden;border:3px solid #fe2c55;box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+                    <img src="imagenes/imgbio1.webp" alt="El Polo Dancer - inicios en el baile" style="width:100%;display:block;object-fit:cover;" onerror="this.closest('div').style.display='none'">
+                </div>
+
+                <!-- Barra Seguir Viendo -->
+                <button type="button" id="btn-seguir-viendo" onclick="toggleSeguirViendo()" style="display:block;width:100%;max-width:480px;margin:18px auto 0 auto;padding:16px 24px;border-radius:0;border:2px solid #fe2c55;background:#fe2c55;color:#fff; text-shadow: var(--trazo-negro);font-size:17px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;" onmouseover="this.style.background='#d81f43'" onmouseout="this.style.background='#fe2c55'">
+                    Seguir Viendo <span id="icono-seguir-viendo" style="display:inline-block;transition:transform 0.2s;">▾</span>
+                </button>
+
+                <!-- Contenido desplegable -->
+                <div id="zona-seguir-viendo" style="display:none;width:100%;margin:18px 0 0 0;">
+                    <p class="bio-parrafo" style="text-align:left;">
+                        Publique unos videos mas o menos explicando mi historia e inicios en el baile, ademas de que contienen los mismos videos de mis inicios, los cuales me dan un poco de verguenza, pero actualmente se encuentran en modo privado, y si estas aquí considérate afortunado o maldecido, ya que aquí mismo puedes ver esos videos, ya que con los links insertados, Puedo hacer que se muestren aqui desde mi canal de youtube sin que se vean en mi canal de youtube, asi que aqui te dejo los 3 videos de casi media hora cada uno sobre mis inicios en el baile y mis primeros videos de baile.
+                    </p>
+                </div>
+
+                <!-- 3 videos de los inicios -->
+                <div class="grilla-productos" id="grilla-bio-videos" style="margin-top:18px;display:none;"></div>
+
+                <!-- ═══ Sobre el Desarrollo Web ═══ -->
+                <p class="bio-parrafo" style="font-weight:700;margin-top:40px;margin-bottom:6px;">
+                    Sobre el Desarrollo Web:
                 </p>
                 <p class="bio-parrafo">
-                    Más que un bailarín, Polo Dancer es un referente que ha sabido mantenerse a la vanguardia, adaptando constantemente su repertorio a las complejidades del sonido electrónico actual. Con una base sólida construida a lo largo de diez años, su baile es la representación pura de la disciplina, el control y la capacidad de transformar el espacio en una experiencia visual impactante.
+                    Termine de Aprender sobre Desarrollo Web en 2026, esta misma pagina fue creada por mi, El Polo Dancer, aunque claro, mi nombre Profesional en el Desarrollo Web es El Polo Network, aquí puedes encontrar todos mis proyectos profesionales y diversas redes sociales, pero lo escencial es saber como manejo mis paginas web en caso de que alguno desee adquirir una pagina web atravez de mis servicios, da click en el siguiente boton para ver mi pagina web profecional y veas otras paginas web de referencia que he creado para que te des una idea de lo que abarcan mis servicios:
                 </p>
-                <p class="bio-parrafo" style="margin-top:20px; font-size:13px; color:#888; font-style:italic;">Estilo: Popping, Animation, Dubstep. Legado: 10+ años en escena. Enfoque: Maestría técnica y evolución constante.</p>
+
+                <!-- Banner / Botón hacia El Polo Network -->
+                <a href="https://elpologr.github.io/elpolo/" target="_blank" rel="noopener" style="display:block;max-width:480px;margin:24px auto 0 auto;border-radius:18px;overflow:hidden;border:3px solid #fe2c55;box-shadow:0 8px 24px rgba(0,0,0,0.18);cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.015)';this.style.boxShadow='0 10px 28px rgba(0,0,0,0.28)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.18)'">
+                    <img src="https://res.cloudinary.com/dwzlxnuld/image/upload/v1782804379/elpolonetworkbanner_hpeo8o.webp" alt="El Polo Network - Desarrollo Web" style="width:100%;display:block;object-fit:cover;" onerror="this.closest('a').style.display='none'">
+                </a>
+
+                <!-- Barra Seguir Viendo (Desarrollo Web) -->
+                <button type="button" id="btn-seguir-viendo-web" onclick="toggleSeguirViendoWeb()" style="display:block;width:100%;max-width:480px;margin:18px auto 0 auto;padding:16px 24px;border-radius:0;border:2px solid #fe2c55;background:#fe2c55;color:#fff; text-shadow: var(--trazo-negro);font-size:17px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;" onmouseover="this.style.background='#d81f43'" onmouseout="this.style.background='#fe2c55'">
+                    Seguir Viendo <span id="icono-seguir-viendo-web" style="display:inline-block;transition:transform 0.2s;">▾</span>
+                </button>
+
+                <!-- Contenido desplegable (Desarrollo Web) -->
+                <div id="zona-seguir-viendo-web" style="display:none;width:100%;margin:18px 0 0 0;">
+                </div>
             </div>
 
         </div>
@@ -1914,10 +2514,17 @@
         </div>
         </div><!-- /seccion-musica -->
 
+        <!-- ====== SECCIÓN TUTORIALES ====== -->
+        <div id="seccion-tutoriales" style="display:none; margin-bottom:40px;">
+            <div class="grilla-productos" id="grilla-tutoriales">
+                <p class="sin-resultados" id="mensaje-vacio-tutoriales">Próximamente encontrarás tutoriales aquí.</p>
+            </div>
+        </div><!-- /seccion-tutoriales -->
+
         <!-- ====== SECCIÓN PROYECTOS ====== -->
         <div id="seccion-proyectos" style="display:none; margin-bottom:40px;">
-            <div class="grilla-productos" style="grid-template-columns: repeat(2,1fr); gap:16px;">
-
+            <div class="grilla-productos" id="grilla-proyectos" style="grid-template-columns: 1fr; gap:16px;">
+                <p id="mensaje-vacio-proyectos" style="display:none;grid-column:1/-1;text-align:center;padding:40px;color:#bbb;">No hay proyectos disponibles por el momento.</p>
             </div>
         </div><!-- /seccion-proyectos -->
     </div>
@@ -1950,6 +2557,43 @@
                 <div class="mp-botones">
                     <button class="btn-mp-compartir" id="btnMpCompartir" style="width:100%;">🔗 Compartir</button>
                 </div>
+            </div>
+
+            <!-- ═══ Comentarios públicos (solo aparece en videos) ═══ -->
+            <div class="mp-comentarios" id="mpComentarios" style="display:none;">
+                <h3 class="mp-comentarios-titulo">Comentarios</h3>
+
+                <!-- Formulario (solo visible con sesión iniciada) -->
+                <div id="mpComentarioForm" style="display:none;">
+                    <textarea id="mpComentarioTexto" class="mp-comentario-input" maxlength="500"
+                              placeholder="Escribe un comentario público..."></textarea>
+                    <button class="btn-mp-compartir" id="mpComentarioEnviar" onclick="enviarComentarioVideo()">Comentar</button>
+                </div>
+
+                <!-- Aviso (solo visible sin sesión iniciada) -->
+                <button id="mpComentarioLogin" class="btn-opcion-perfil" onclick="iniciarSesionGoogle()" style="display:none;justify-content:center;">
+                    Inicia sesión con Google para comentar
+                </button>
+
+                <div id="mpListaComentarios" class="mp-lista-comentarios"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ MODAL INFO PROYECTO ═══ -->
+    <div id="modalProyecto" class="modal" onclick="if(event.target.id==='modalProyecto') cerrarModal('modalProyecto')">
+        <div class="modal-producto-contenido" onclick="event.stopPropagation()" style="max-width:480px;">
+            <button class="mp-cerrar" onclick="cerrarModal('modalProyecto')">✕</button>
+            <div class="mp-galeria" style="height:auto;max-height:260px;overflow:hidden;border-radius:12px;">
+                <img id="proyectoModalImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+            <div class="mp-info">
+                <h2 class="mp-nombre" id="proyectoModalTitulo"></h2>
+                <p class="mp-descripcion" id="proyectoModalDescripcion" style="display:block;"></p>
+                <div class="mp-botones">
+                    <a id="proyectoModalLink" href="#" target="_blank" rel="noopener" class="btn-mp-compartir" style="width:100%;text-align:center;text-decoration:none;display:block;">🔗 Visitar proyecto</a>
+                </div>
+                <div class="proyecto-media-lista" id="proyectoModalMediaLista"></div>
             </div>
         </div>
     </div>
@@ -2010,10 +2654,6 @@
         function abrirDrawer() {
             document.getElementById('drawer').classList.add('activo');
             document.getElementById('drawerOverlay').classList.add('activo');
-            // Mostrar sugerencias iniciales al abrir si aún no se buscó
-            if (!document.getElementById('drawerResultados').classList.contains('visible')) {
-                mostrarSugerenciasIniciales();
-            }
         }
         function cerrarDrawer() {
             document.getElementById('drawer').classList.remove('activo');
@@ -2048,78 +2688,6 @@
         }
 
         // ═══════════════════════════════════════════════
-        //  DRAWER — BÚSQUEDA
-        // ═══════════════════════════════════════════════
-        function obtenerProductos() {
-            return Array.from(document.querySelectorAll('.producto-card')).map(card => ({
-                id: card.id,
-                nombre: card.dataset.nombre || '',
-                precio: card.dataset.precioTexto || '',
-                categoria: card.dataset.categoria || '',
-                img: card.querySelector('.producto-img')?.src || '',
-                card: card
-            }));
-        }
-
-        function mostrarSugerenciasIniciales() {
-            const productos = obtenerProductos();
-            // Mostrar los primeros 3 como sugerencias iniciales
-            const sugerencias = productos.slice(0, 3);
-            renderizarResultados(sugerencias, 'Productos destacados');
-        }
-
-        function ejecutarBusqueda() {
-            const query = document.getElementById('drawerInputBusqueda').value.trim().toLowerCase();
-            const productos = obtenerProductos();
-            if (!query) {
-                mostrarSugerenciasIniciales();
-                return;
-            }
-            const resultados = productos.filter(p =>
-                p.nombre.toLowerCase().includes(query) ||
-                p.categoria.toLowerCase().includes(query)
-            );
-            // La primera línea siempre será la mejor coincidencia y también la próxima sugerencia
-            renderizarResultados(resultados, `Resultados para "${query}"`);
-        }
-
-        function renderizarResultados(lista, titulo) {
-            const contenedor = document.getElementById('drawerResultados');
-            const listaEl = document.getElementById('drawerListaResultados');
-            const sinRes = document.getElementById('drawerSinResultados');
-            const tituloEl = document.getElementById('drawerRecTitulo');
-
-            contenedor.classList.add('visible');
-            tituloEl.textContent = titulo;
-            listaEl.innerHTML = '';
-            sinRes.style.display = 'none';
-
-            if (lista.length === 0) {
-                sinRes.style.display = 'block';
-                return;
-            }
-            // Mostrar máximo 3
-            lista.slice(0, 3).forEach(p => {
-                const item = document.createElement('div');
-                item.className = 'drawer-rec-item';
-                item.innerHTML = `
-                    <img class="drawer-rec-img" src="${p.img}" alt="${p.nombre}" onerror="this.style.background='#eee'">
-                    <div class="drawer-rec-info">
-                        <p class="drawer-rec-nombre">${p.nombre}</p>
-                        <p class="drawer-rec-precio">${p.precio}</p>
-                    </div>
-                    <span style="color:#bbb;">›</span>
-                `;
-                item.onclick = () => {
-                    cerrarDrawer();
-                    p.card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setTimeout(() => abrirFichaProducto(p.card), 400);
-                };
-                listaEl.appendChild(item);
-            });
-        }
-
-        // ═══════════════════════════════════════════════
         //  DRAWER — MODO OSCURO
         // ═══════════════════════════════════════════════
         function toggleModoOscuro() {
@@ -2130,9 +2698,9 @@
 
         // Recordar preferencia de modo oscuro
         window.addEventListener('DOMContentLoaded', () => {
-            // Modo oscuro predeterminado: activo a menos que el usuario haya elegido explícitamente claro
+            // Modo oscuro predeterminado: inactivo a menos que el usuario lo haya activado explícitamente
             const guardado = localStorage.getItem('modoOscuro');
-            const oscuro = guardado === null ? true : guardado === 'true';
+            const oscuro = guardado === null ? false : guardado === 'true';
             if (oscuro) {
                 document.body.classList.add('modo-oscuro');
                 document.getElementById('toggleOscuro').classList.add('activo');
@@ -2149,51 +2717,14 @@
         //  PANTALLA PERFIL COMPLETA
         // ═══════════════════════════════════════════════
         function abrirPantallaPerfil() {
-            // Sincronizar avatar y nombre
-            const foto = localStorage.getItem('fotoPerfil');
-            if (foto) {
-                document.getElementById('pantallaAvatar').src = foto;
-            }
-            document.getElementById('pantallaUsuarioNombre').textContent =
-                localStorage.getItem('nombreUsuario') || 'Invitado';
             document.getElementById('pantallaPerfil').classList.add('activo');
         }
         function cerrarPantallaPerfil() {
             document.getElementById('pantallaPerfil').classList.remove('activo');
         }
-
-        // ═══════════════════════════════════════════════
-        //  DRAWER — FOTO DE PERFIL
-        // ═══════════════════════════════════════════════
-        function elegirFotoGaleria() {
-            document.getElementById('inputFotoPerfil').click();
-        }
-        function aplicarFotoPerfil(event) {
-            const archivo = event.target.files[0];
-            if (!archivo) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                const src = e.target.result;
-                document.getElementById('drawerAvatar').src = src;
-                document.getElementById('pantallaAvatar').src = src;
-                localStorage.setItem('fotoPerfil', src);
-            };
-            reader.readAsDataURL(archivo);
-        }
-
-        // Recuperar foto y nombre al cargar
-        window.addEventListener('DOMContentLoaded', () => {
-            const foto = localStorage.getItem('fotoPerfil');
-            if (foto) {
-                document.getElementById('drawerAvatar').src = foto;
-                document.getElementById('pantallaAvatar').src = foto;
-            }
-            const nombre = localStorage.getItem('nombreUsuario');
-            if (nombre) {
-                document.getElementById('drawerNombreUsuario').textContent = nombre;
-                document.getElementById('pantallaUsuarioNombre').textContent = nombre;
-            }
-        });
+        // El resto de la lógica de sesión (Google Sign-In, Firestore, avatar,
+        // nombre de usuario) se controla desde el bloque de Firebase al final
+        // del documento, mediante onAuthStateChanged.
         function abrirModal(modalId) {
             scrollYGuardado = window.scrollY;
             document.body.style.top = `-${scrollYGuardado}px`;
@@ -2210,6 +2741,7 @@
                 if (track) track.innerHTML = '';
                 const plataformasDiv = document.getElementById('mpPlataformasVideo');
                 if (plataformasDiv) { plataformasDiv.innerHTML = ''; plataformasDiv.style.display = 'none'; }
+                if (typeof ocultarComentariosVideo === 'function') ocultarComentariosVideo();
             }
             document.getElementById(modalId).style.display = 'none';
             document.body.classList.remove('modal-abierto');
@@ -2229,6 +2761,94 @@
             }
         });
 
+        // ══════════════════════════════════════════════════════════════════
+        // AVISO DE PRIVACIDAD Y COOKIES
+        // ══════════════════════════════════════════════════════════════════
+
+        var _COOKIE_KEY = 'polodancer-cookies-aceptadas';
+
+        /**
+         * Inicializa la barra de cookies al cargar la página.
+         * Si el usuario ya aceptó antes, la oculta de inmediato sin animación.
+         */
+        function _initBarraCookies() {
+            var barra = document.getElementById('barraCookies');
+            if (!barra) return;
+            if (localStorage.getItem(_COOKIE_KEY) === '1') {
+                barra.classList.add('oculta');
+            }
+            // Desplaza hacia abajo el botón del drawer para que no quede tapado
+            _ajustarOffsetDrawer();
+        }
+
+        /**
+         * El usuario presionó "Aceptar" — guarda en localStorage y oculta la barra.
+         */
+        function aceptarCookies() {
+            localStorage.setItem(_COOKIE_KEY, '1');
+            var barra = document.getElementById('barraCookies');
+            if (barra) barra.classList.add('oculta');
+            _ajustarOffsetDrawer();
+        }
+
+        /**
+         * Abre la pantalla de aviso de privacidad (desliza desde la derecha).
+         */
+        function abrirPantallaPrivacidad() {
+            var pantalla = document.getElementById('pantallaPrivacidad');
+            if (!pantalla) return;
+            pantalla.style.display = 'flex';
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    pantalla.classList.add('abierta');
+                });
+            });
+            try { history.pushState({ kukumitaModal: 'privacidad' }, ''); } catch(e) {}
+        }
+
+        /**
+         * Cierra la pantalla de aviso de privacidad.
+         */
+        function cerrarPantallaPrivacidad() {
+            var pantalla = document.getElementById('pantallaPrivacidad');
+            if (!pantalla) return;
+            pantalla.classList.remove('abierta');
+            setTimeout(function() {
+                if (!pantalla.classList.contains('abierta')) {
+                    pantalla.style.display = 'none';
+                }
+            }, 300);
+        }
+
+        /**
+         * Ajusta el top del botón de abrir el drawer para que no quede
+         * debajo de la barra de cookies cuando esta está visible.
+         */
+        function _ajustarOffsetDrawer() {
+            var barra   = document.getElementById('barraCookies');
+            var btnMenu = document.querySelector('.btn-abrir-drawer');
+            if (!barra || !btnMenu) return;
+            if (barra.classList.contains('oculta')) {
+                btnMenu.style.top = '';
+            } else {
+                var altoBarra = barra.offsetHeight || 38;
+                btnMenu.style.top = (altoBarra + 8) + 'px';
+            }
+        }
+
+        // Conectar el cierre de la pantalla de privacidad con el botón Atrás
+        window.addEventListener('popstate', function() {
+            var pantalla = document.getElementById('pantallaPrivacidad');
+            if (pantalla && pantalla.classList.contains('abierta')) {
+                pantalla.classList.remove('abierta');
+                setTimeout(function() {
+                    if (!pantalla.classList.contains('abierta')) pantalla.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', _initBarraCookies);
+
         // ═══════════════════════════════════════════════
         //  FICHA DE PRODUCTO
         // ═══════════════════════════════════════════════
@@ -2238,42 +2858,47 @@
 
         // Función central que controla qué sección se muestra
         function mostrarSeccion(cual) {
-            const zona = document.getElementById('zona-biografia');
-            const sec  = document.getElementById('seccion-musica');
+            const zona    = document.getElementById('zona-biografia');
+            const sec     = document.getElementById('seccion-musica');
+            const secTut  = document.getElementById('seccion-tutoriales');
+            const secProy = document.getElementById('seccion-proyectos');
             const btnBio  = document.getElementById('btn-biografia');
             const btnMus  = document.getElementById('btn-musica');
+            const btnTut  = document.getElementById('btn-tutoriales');
             const btnProy = document.getElementById('btn-proyectos');
 
-            // Ocultar todo primero
+            // Ocultar todas las secciones
             zona.style.display = 'none';
             sec.style.display  = 'none';
-            const secProy = document.getElementById('seccion-proyectos');
+            if (secTut)  secTut.style.display  = 'none';
             if (secProy) secProy.style.display = 'none';
 
-            // Restablecer estilos de los 3 botones
-            [btnBio, btnMus, btnProy].forEach(b => {
-                b.style.background   = '#fff';
-                b.style.borderColor  = '#222';
-                b.style.color        = '#222';
+            // Quitar clase activo de todos los botones
+            [btnBio, btnMus, btnTut, btnProy].forEach(b => b && b.classList.remove('activo'));
+
+            // Cambiar fondo animado
+            ['bio', 'videos', 'tutoriales', 'proyectos'].forEach(id => {
+                const capa = document.getElementById('fondo-' + id);
+                if (capa) capa.classList.remove('activa');
             });
-            btnBio.style.background = '#fff';
+            const mapaCapa = { biografia: 'bio', musica: 'videos', tutoriales: 'tutoriales', proyectos: 'proyectos' };
+            const capaId = document.getElementById('fondo-' + (mapaCapa[cual] || 'bio'));
+            if (capaId) capaId.classList.add('activa');
 
             // Mostrar la sección elegida y marcar su botón activo
             if (cual === 'biografia') {
                 zona.style.display = 'block';
-                btnBio.style.background  = '#fe2c55';
-                btnBio.style.borderColor = '#fe2c55';
-                btnBio.style.color       = '#fff';
+                btnBio.classList.add('activo');
             } else if (cual === 'musica') {
                 sec.style.display = 'block';
-                btnMus.style.background  = '#fe2c55';
-                btnMus.style.borderColor = '#fe2c55';
-                btnMus.style.color       = '#fff';
+                btnMus.classList.add('activo');
+            } else if (cual === 'tutoriales') {
+                if (secTut) secTut.style.display = 'block';
+                if (btnTut) btnTut.classList.add('activo');
             } else if (cual === 'proyectos') {
-                document.getElementById('seccion-proyectos').style.display = 'block';
-                btnProy.style.background  = '#fe2c55';
-                btnProy.style.borderColor = '#fe2c55';
-                btnProy.style.color       = '#fff';
+                if (secProy) secProy.style.display = 'block';
+                btnProy.classList.add('activo');
+                cargarProyectosDesdeSheet();
             }
         }
 
@@ -2281,8 +2906,79 @@
             mostrarSeccion('biografia');
         }
 
+        // ═══════════════════════════════════════════════
+        //  BIOGRAFÍA — "SEGUIR VIENDO" (3 videos de los inicios)
+        // ═══════════════════════════════════════════════
+        const VIDEOS_INICIOS_BIO = [
+            { titulo: 'Mis inicios en el baile — Video 1', id: 'lR8phu0BzZw' },
+            { titulo: 'Mis inicios en el baile — Video 2', id: '3RoNfuhviDc' },
+            { titulo: 'Mis inicios en el baile — Video 3', id: 'YgaKLEsE9sw' }
+        ];
+
+        function cargarVideosIniciosBio() {
+            const grilla = document.getElementById('grilla-bio-videos');
+            if (!grilla || grilla.dataset.cargado) return;
+            grilla.innerHTML = '';
+            VIDEOS_INICIOS_BIO.forEach((v, i) => {
+                const card = document.createElement('div');
+                card.className = 'producto-card';
+                card.id = 'video-bio-' + (i + 1);
+                card.dataset.nombre      = v.titulo;
+                card.dataset.descripcion = '';
+                card.dataset.mediaTipo   = 'youtube';
+                card.dataset.ytEmbed     = `https://www.youtube.com/embed/${v.id}?autoplay=1`;
+                card.dataset.ytId        = v.id;
+                card.onclick = function () { abrirFichaProducto(card); };
+                card.innerHTML = `
+                    <img class="producto-img" src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg" alt="${v.titulo}" onerror="this.src='https://img.youtube.com/vi/${v.id}/mqdefault.jpg';this.onerror=null">
+                    <div class="producto-info">
+                        <h3 class="producto-titulo">${v.titulo}</h3>
+                    </div>
+                    <div class="producto-card-hint">Toca para ver el video</div>
+                `;
+                grilla.appendChild(card);
+            });
+            grilla.dataset.cargado = '1';
+        }
+
+        function toggleSeguirViendo() {
+            const zona   = document.getElementById('zona-seguir-viendo');
+            const grilla = document.getElementById('grilla-bio-videos');
+            const icono  = document.getElementById('icono-seguir-viendo');
+            const abierto = zona.style.display !== 'none';
+            if (abierto) {
+                zona.style.display   = 'none';
+                grilla.style.display = 'none';
+                icono.style.transform = 'rotate(0deg)';
+            } else {
+                zona.style.display   = 'block';
+                grilla.style.display = 'grid';
+                icono.style.transform = 'rotate(180deg)';
+                cargarVideosIniciosBio();
+            }
+        }
+
+        // ═══════════════════════════════════════════════
+        //  BIOGRAFÍA — "SEGUIR VIENDO" (Sobre el Desarrollo Web)
+        // ═══════════════════════════════════════════════
+        function toggleSeguirViendoWeb() {
+            const zona  = document.getElementById('zona-seguir-viendo-web');
+            const icono = document.getElementById('icono-seguir-viendo-web');
+            const abierto = zona.style.display !== 'none';
+            if (abierto) {
+                zona.style.display    = 'none';
+                icono.style.transform = 'rotate(0deg)';
+            } else {
+                zona.style.display    = 'block';
+                icono.style.transform = 'rotate(180deg)';
+            }
+        }
+
         function abrirFichaProducto(card) {
             productoActivo = card;
+
+            // Por defecto, ocultar comentarios (solo se muestran para videos)
+            if (typeof ocultarComentariosVideo === 'function') ocultarComentariosVideo();
 
             // Llenar info
             document.getElementById('mpNombre').textContent   = card.dataset.nombre;
@@ -2318,7 +3014,7 @@
 
                 track.innerHTML = `
                     <div class="mp-video-placeholder">
-                        ${card.dataset.ytId ? `<img src="https://img.youtube.com/vi/${card.dataset.ytId}/hqdefault.jpg" alt="">` : ''}
+                        ${card.dataset.ytId ? `<img src="https://img.youtube.com/vi/${card.dataset.ytId}/maxresdefault.jpg" alt="" onerror="this.src='https://img.youtube.com/vi/${card.dataset.ytId}/mqdefault.jpg';this.onerror=null">` : ''}
                         <div class="mp-video-play-icono">▶</div>
                     </div>`;
                 puntitos.innerHTML = '';
@@ -2326,6 +3022,11 @@
                 document.getElementById('mpFlechaIzq').classList.add('oculto');
                 document.getElementById('mpFlechaDer').classList.add('oculto');
                 galeriaImagenes = [];
+
+                // Mostrar y cargar los comentarios públicos de este video
+                if (typeof mostrarComentariosVideo === 'function') {
+                    mostrarComentariosVideo(card.dataset.ytId || card.dataset.nombre || card.id);
+                }
 
                 // Construir los botones de plataforma según qué columnas vinieron llenas
                 const plataformasDiv = document.getElementById('mpPlataformasVideo');
@@ -2346,8 +3047,8 @@
                     });
                     plataformasDiv.style.display = plataformas.length ? 'flex' : 'none';
 
-                    // Si solo hay una plataforma disponible, reproducir directo al presionar el placeholder
-                    if (plataformas.length === 1) {
+                    // Siempre hacer el placeholder clickeable; reproduce la primera plataforma disponible
+                    if (plataformas.length >= 1) {
                         track.querySelector('.mp-video-placeholder').onclick = () => reproducirVideoModal(plataformas[0].tipo, plataformas[0].embed);
                     }
                 }
@@ -2364,7 +3065,7 @@
             if (videoYT) {
                 const track = document.getElementById('mpTrack');
                 const puntitos = document.getElementById('mpPuntitos');
-                track.innerHTML = `<iframe src="${videoYT}" style="width:100%;height:100%;min-height:280px;border:none;border-radius:12px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                track.innerHTML = `<div class="mp-video-wrapper aspecto-16-9"><iframe src="${videoYT}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
                 puntitos.innerHTML = '';
                 puntitos.style.display = 'none';
                 document.getElementById('mpFlechaIzq').classList.add('oculto');
@@ -2390,11 +3091,11 @@
             const track = document.getElementById('mpTrack');
             if (!track || !embed) return;
             if (tipo === 'youtube') {
-                track.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;min-height:280px;border:none;border-radius:12px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                track.innerHTML = `<div class="mp-video-wrapper aspecto-16-9"><iframe src="${embed}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
             } else if (tipo === 'facebook') {
-                track.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;min-height:280px;border:none;border-radius:12px;overflow:hidden;" scrolling="no" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
+                track.innerHTML = `<div class="mp-video-wrapper aspecto-16-9"><iframe src="${embed}" scrolling="no" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe></div>`;
             } else if (tipo === 'instagram') {
-                track.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;min-height:480px;border:none;border-radius:12px;" allowtransparency="true" allowfullscreen="true"></iframe>`;
+                track.innerHTML = `<div class="mp-video-wrapper aspecto-9-16"><iframe src="${embed}" allowtransparency="true" allowfullscreen="true"></iframe></div>`;
             }
         }
 
@@ -2402,8 +3103,11 @@
         //  VIDEOS — GOOGLE SHEETS (zona de Videos)
         // ═══════════════════════════════════════════════
         // Columnas esperadas en la hoja: Titulo | Descripcion | Fecha | Link youtube | enbeed facebook | enbeed instagram
-        const SHEET_ID_VIDEOS  = '1-WmG7Xp0hus6InSJ8tLQpcietG2t8zAt7A9b9zk_Vzc';
-        const SHEET_URL_VIDEOS = `https://docs.google.com/spreadsheets/d/${SHEET_ID_VIDEOS}/gviz/tq?tqx=out:csv`;
+        const SHEET_ID_VIDEOS  = '1W1yux5rQaNlPjufGy2OFQQJxoXtDaXeSgeQTywoxpu4';
+        const SHEET_URL_VIDEOS = `https://docs.google.com/spreadsheets/d/${SHEET_ID_VIDEOS}/gviz/tq?tqx=out:csv&sheet=Videos%20Redes`;
+
+        // Columnas esperadas en Sheet2 (Proyectos): Titulo | Imagen (Cloudinary) | Descripcion | Link
+        const SHEET_URL_PROYECTOS = `https://docs.google.com/spreadsheets/d/${SHEET_ID_VIDEOS}/gviz/tq?tqx=out:csv&sheet=Proyectos`;
 
         // Parser de CSV con detección automática de delimitador (tabulador o coma)
         function parsearCSVVideos(texto) {
@@ -2635,9 +3339,9 @@
 
                 let miniatura;
                 if (media.tipo === 'youtube' && media.youtubeId) {
-                    miniatura = `<img class="producto-img" src="https://img.youtube.com/vi/${media.youtubeId}/hqdefault.jpg" alt="${escaparHTMLVideo(v.titulo)}" onerror="this.style.background='#111'">`;
+                    miniatura = `<img class="producto-img" src="https://img.youtube.com/vi/${media.youtubeId}/maxresdefault.jpg" alt="${escaparHTMLVideo(v.titulo)}" onerror="this.src='https://img.youtube.com/vi/${media.youtubeId}/mqdefault.jpg';this.onerror=function(){this.style.background='#111'}">`;
                 } else if (media.tipo === 'facebook') {
-                    miniatura = `<div class="producto-img" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1877F2,#0d3f8f);color:#fff;font-size:42px;">▶</div>`;
+                    miniatura = `<div class="producto-img" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1877F2,#0d3f8f);color:#fff; text-shadow: var(--trazo-negro);font-size:42px;">▶</div>`;
                 } else {
                     const igThumb = construirMiniaturaInstagram(v.instagram);
                     miniatura = `<img class="producto-img" src="${igThumb}" alt="${escaparHTMLVideo(v.titulo)}" referrerpolicy="no-referrer" onerror="manejarErrorMiniaturaIG(this)">`;
@@ -2659,13 +3363,164 @@
 
         window.addEventListener('DOMContentLoaded', cargarVideosDesdeSheet);
 
-        function toggleBiografia() {
-            const zona = document.getElementById('zona-biografia');
-            const btn  = document.getElementById('btn-biografia');
-            const visible = zona.style.display === 'block';
-            zona.style.display = visible ? 'none' : 'block';
-            btn.style.background  = visible ? '#222' : '#fe2c55';
-            btn.style.borderColor = visible ? '#222' : '#fe2c55';
+        // ═══════════════════════════════════════════════
+        //  PROYECTOS — GOOGLE SHEETS (Sheet2)
+        // ═══════════════════════════════════════════════
+        // Columnas esperadas en Sheet2 (Proyectos): Titulo | Imagen (Cloudinary) | Descripcion | Link
+        // A partir de la columna 5 (índice 4) se leen pares dinámicos:
+        // Imagen o Video 1 | Descripción de imagen o video 1 | Imagen o Video 2 | Descripción de imagen o video 2 | ...
+        // Se admite cualquier cantidad de pares — se detiene al encontrar un par vacío.
+        // Cada "Imagen o Video N" puede ser una URL de imagen o un link de YouTube/Facebook/Instagram.
+        let proyectosCargados = false;
+
+        // Detecta si una URL es un video (YouTube/Facebook/Instagram) o una imagen normal
+        function analizarMediaProyecto(url) {
+            const u = (url || '').trim();
+            if (!u) return null;
+            const media = detectarMediaVideo(
+                u.includes('youtu') ? u : '',
+                u.includes('facebook.com') ? u : '',
+                u.includes('instagram.com') ? u : ''
+            );
+            if (media) return media;
+            return { tipo: 'imagen', embed: u };
+        }
+
+        async function cargarProyectosDesdeSheet() {
+            if (proyectosCargados) return;
+            const grilla   = document.getElementById('grilla-proyectos');
+            const msgVacio = document.getElementById('mensaje-vacio-proyectos');
+            if (!grilla) return;
+            try {
+                const resp = await fetch(SHEET_URL_PROYECTOS + '&t=' + Date.now());
+                if (!resp.ok) throw new Error('No se pudo leer la hoja de proyectos');
+                const texto = await resp.text();
+                const filas = parsearCSVVideos(texto);
+                const datos = filas.slice(1).filter(f => (f[0] || '').trim() !== '' || (f[3] || '').trim() !== '');
+
+                const proyectos = datos.map(f => {
+                    const mediaExtra = [];
+                    // Columnas 4, 5, 6... en pares (media, descripcion), hasta que ambas estén vacías
+                    for (let c = 4; c < f.length; c += 2) {
+                        const mediaUrl = (f[c] || '').trim();
+                        const mediaDesc = (f[c + 1] || '').trim();
+                        if (!mediaUrl && !mediaDesc) continue;
+                        mediaExtra.push({ url: mediaUrl, descripcion: mediaDesc });
+                    }
+                    return {
+                        titulo:      (f[0] || '').trim(),
+                        imagen:      (f[1] || '').trim(),
+                        descripcion: (f[2] || '').trim(),
+                        link:        (f[3] || '').trim(),
+                        mediaExtra
+                    };
+                });
+
+                grilla.querySelectorAll('.producto-card').forEach(c => c.remove());
+
+                if (!proyectos.length) {
+                    if (msgVacio) msgVacio.style.display = 'block';
+                    return;
+                }
+                if (msgVacio) msgVacio.style.display = 'none';
+
+                proyectos.forEach((p, i) => {
+                    const card = document.createElement('div');
+                    card.className = 'producto-card proyecto-card';
+                    card.id = 'proyecto-' + (i + 1);
+
+                    const miniatura = p.imagen
+                        ? `<img class="producto-img" src="${p.imagen}" alt="${escaparHTMLVideo(p.titulo)}" onerror="this.style.background='#181a30'">`
+                        : `<div class="producto-img" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fe2c55,#6b4f8a);color:#fff; text-shadow: var(--trazo-negro);font-size:14px;font-weight:700;text-align:center;padding:10px;">${escaparHTMLVideo(p.titulo) || 'Proyecto'}</div>`;
+
+                    card.innerHTML = `
+                        ${miniatura}
+                        <div class="producto-info">
+                            <h3 class="producto-titulo">${escaparHTMLVideo(p.titulo)}</h3>
+                            <p class="proyecto-descripcion-corta">${escaparHTMLVideo(p.descripcion)}</p>
+                        </div>
+                    `;
+                    if (p.link || p.descripcion || p.imagen || p.mediaExtra.length) {
+                        card.onclick = function () { abrirModalProyecto(p); };
+                    }
+                    grilla.appendChild(card);
+                });
+
+                proyectosCargados = true;
+            } catch (err) {
+                console.error('No se pudieron cargar los proyectos desde Google Sheets:', err);
+                if (msgVacio) {
+                    msgVacio.textContent = 'No se pudieron cargar los proyectos. Intenta de nuevo más tarde.';
+                    msgVacio.style.display = 'block';
+                }
+            }
+        }
+
+        function abrirModalProyecto(p) {
+            const modal = document.getElementById('modalProyecto');
+            const img   = document.getElementById('proyectoModalImg');
+            const tit   = document.getElementById('proyectoModalTitulo');
+            const desc  = document.getElementById('proyectoModalDescripcion');
+            const link  = document.getElementById('proyectoModalLink');
+            const lista = document.getElementById('proyectoModalMediaLista');
+            if (!modal) return;
+
+            // 1. Imagen principal del proyecto
+            if (p.imagen) {
+                img.src = p.imagen;
+                img.style.display = 'block';
+                img.onerror = () => { img.style.display = 'none'; };
+            } else {
+                img.style.display = 'none';
+            }
+
+            // 2. Nombre del proyecto
+            tit.textContent  = p.titulo || 'Proyecto';
+
+            // 3. Descripción
+            desc.textContent = p.descripcion || '';
+            desc.style.display = p.descripcion ? 'block' : 'none';
+
+            if (p.link) {
+                link.href = p.link;
+                link.style.display = 'block';
+            } else {
+                link.style.display = 'none';
+            }
+
+            // 4. Espacio con imágenes o videos adicionales, cada uno con su descripción
+            if (lista) {
+                lista.innerHTML = '';
+                (p.mediaExtra || []).forEach((m, idx) => {
+                    if (!m.url) return;
+                    const media = analizarMediaProyecto(m.url);
+                    if (!media) return;
+
+                    const item = document.createElement('div');
+                    item.className = 'proyecto-media-item';
+
+                    if (media.tipo === 'imagen') {
+                        item.innerHTML = `<img src="${media.embed}" alt="${escaparHTMLVideo(m.descripcion || p.titulo)}" loading="lazy" onerror="this.closest('.proyecto-media-item').style.display='none'">`;
+                    } else if (media.tipo === 'youtube') {
+                        item.innerHTML = `<div class="mp-video-wrapper"><iframe src="${media.embed.replace('autoplay=1','autoplay=0')}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+                    } else if (media.tipo === 'facebook') {
+                        item.innerHTML = `<div class="mp-video-wrapper"><iframe src="${media.embed.replace('autoplay=1','autoplay=0')}" scrolling="no" allowfullscreen="true" allow="encrypted-media; picture-in-picture; web-share"></iframe></div>`;
+                    } else if (media.tipo === 'instagram') {
+                        item.innerHTML = `<div class="mp-video-wrapper"><iframe src="${media.embed}" allowtransparency="true" allowfullscreen="true"></iframe></div>`;
+                    }
+
+                    if (m.descripcion) {
+                        const cap = document.createElement('p');
+                        cap.className = 'proyecto-media-caption';
+                        cap.textContent = m.descripcion;
+                        item.appendChild(cap);
+                    }
+                    lista.appendChild(item);
+                });
+            }
+
+            modal.classList.add('activo');
+            modal.style.display = 'flex';
         }
 
         function onClickOverlayProducto(e) {
@@ -2777,11 +3632,11 @@
             const urlBase      = window.location.href.split('?')[0];
             urlCompartirActual = `${urlBase}?producto=${idProducto}`;
             const urlEncoded   = encodeURIComponent(urlCompartirActual);
-            const texto        = encodeURIComponent(`¡Mira esta figura de yeso: ${nombreProducto} en Yesos Polo Kukumita! 😍 `);
+            const texto        = encodeURIComponent(`¡Mira este video de El Polo Dancer: ${nombreProducto}! 😍 `);
 
             document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${texto}${urlEncoded}`;
             document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${urlEncoded}`;
-            document.getElementById('share-ig').href = `https://www.instagram.com/_polodubstep/`;
+            document.getElementById('share-ig').href = `https://www.instagram.com/elpolodancer/`;
 
             // Mostrar el link en el cajón de copiar
             const urlDiv = document.getElementById('share-copy-url');
@@ -3117,7 +3972,7 @@
             </div>
             <canvas id="qrCanvas" width="200" height="200"></canvas>
             <div class="modal-qr-url" id="qrUrlTexto"></div>
-            <button class="btn-copiar-qr" onclick="copiarURLZismo()" id="btnCopiarURL">
+            <button class="btn-copiar-qr" onclick="copiarURLElPoloDancer()" id="btnCopiarURL">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
                 <span id="btnCopiarTexto">Copiar URL</span>
             </button>
@@ -3125,14 +3980,14 @@
     </div>
 
     <script>
-    // ═══ QR — URL fija (cambiar a polodancer.com cuando se adquiera el dominio) ═══
-    var URL_PAGINA_ZISMO = 'https://elpologr.github.io/zismo/';
+    // ═══ QR — URL de la página de El Polo Dancer ═══
+    var URL_PAGINA_ELPOLODANCER = 'https://elpolodancer.github.io/elpolodancer/';
 
     function abrirModalQR() {
-        var url = URL_PAGINA_ZISMO;
+        var url = URL_PAGINA_ELPOLODANCER;
         document.getElementById('qrUrlTexto').textContent = url;
         document.getElementById('modalQR').classList.add('abierto');
-        generarQRZismo(url);
+        generarQRElPoloDancer(url);
     }
     function cerrarModalQR() {
         document.getElementById('modalQR').classList.remove('abierto');
@@ -3140,7 +3995,7 @@
     document.getElementById('modalQR').addEventListener('click', function(e) {
         if (e.target === this) cerrarModalQR();
     });
-    function generarQRZismo(texto) {
+    function generarQRElPoloDancer(texto) {
         var canvas = document.getElementById('qrCanvas');
         var ctx = canvas.getContext('2d');
         var size = window.innerWidth >= 768 ? 320 : 200;
@@ -3161,8 +4016,8 @@
         };
         document.head.appendChild(script);
     }
-    async function copiarURLZismo() {
-        var url = URL_PAGINA_ZISMO;
+    async function copiarURLElPoloDancer() {
+        var url = URL_PAGINA_ELPOLODANCER;
         var span = document.getElementById('btnCopiarTexto');
         try {
             await navigator.clipboard.writeText(url);
@@ -3174,29 +4029,300 @@
     }
     </script>
 
-    <!-- ═══ FIREBASE — INICIALIZACIÓN ═══ -->
+    <!-- ═══ FIREBASE — INICIALIZACIÓN, AUTENTICACIÓN Y PERFIL ═══ -->
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+        import {
+            getAuth,
+            GoogleAuthProvider,
+            signInWithPopup,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc,
+            updateDoc,
+            serverTimestamp,
+            collection,
+            query,
+            orderBy,
+            limit,
+            onSnapshot,
+            addDoc,
+            deleteDoc
+        } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
-            apiKey: "AIzaSyA78ezVMSJ0gruMe6Xyp6Tn83BCBmoJIJY",
-            authDomain: "polodubstep-ab169.firebaseapp.com",
-            projectId: "polodubstep-ab169",
-            storageBucket: "polodubstep-ab169.firebasestorage.app",
-            messagingSenderId: "231781237672",
-            appId: "1:231781237672:web:aa761137049d1940d5539d",
-            measurementId: "G-PVL32Y7NV0"
+            apiKey: "AIzaSyA80l29AWAR3x1NCDoRPyhtM6c0JOYqoAA",
+            authDomain: "elpolodancer.firebaseapp.com",
+            projectId: "elpolodancer",
+            storageBucket: "elpolodancer.firebasestorage.app",
+            messagingSenderId: "397139900415",
+            appId: "1:397139900415:web:758cba48cba745d163d9ca",
+            measurementId: "G-8B85G46NDZ"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const proveedorGoogle = new GoogleAuthProvider();
+
+        // ═══════════════════════════════════════════════
+        //  INICIAR / CERRAR SESIÓN CON GOOGLE
+        //  (la contraseña SIEMPRE vive solo en la cuenta de
+        //  Google del usuario; este sitio nunca la ve ni la
+        //  guarda en ninguna base de datos)
+        // ═══════════════════════════════════════════════
+        window.iniciarSesionGoogle = async function () {
+            try {
+                const resultado = await signInWithPopup(auth, proveedorGoogle);
+                const usuario = resultado.user;
+                const refUsuario = doc(db, 'usuarios', usuario.uid);
+                const snap = await getDoc(refUsuario);
+                if (!snap.exists()) {
+                    // Primer inicio de sesión: creamos su documento de perfil
+                    await setDoc(refUsuario, {
+                        nombreUsuario: usuario.displayName || 'Usuario',
+                        fotoPerfil: usuario.photoURL || '',
+                        email: usuario.email || '',
+                        creadoEn: serverTimestamp()
+                    });
+                }
+            } catch (err) {
+                console.error('Error al iniciar sesión con Google:', err);
+                alert('No se pudo iniciar sesión con Google. Inténtalo de nuevo.');
+            }
+        };
+
+        window.cerrarSesionGoogle = async function () {
+            try {
+                await signOut(auth);
+                cerrarPantallaPerfil();
+                cerrarDrawer();
+            } catch (err) {
+                console.error('Error al cerrar sesión:', err);
+            }
+        };
+
+        // ═══════════════════════════════════════════════
+        //  CAMBIAR NOMBRE DE USUARIO (solo dentro del sitio,
+        //  se guarda en Firestore, NUNCA afecta la cuenta de
+        //  Google real del usuario)
+        // ═══════════════════════════════════════════════
+        window.cambiarNombreUsuario = async function () {
+            const usuario = auth.currentUser;
+            if (!usuario) return;
+            const actual = document.getElementById('pantallaUsuarioNombre').textContent;
+            const nuevo = prompt('Nuevo nombre de usuario:', actual);
+            if (!nuevo || !nuevo.trim() || nuevo.trim() === actual) return;
+            const nombreLimpio = nuevo.trim().slice(0, 40);
+            try {
+                await updateDoc(doc(db, 'usuarios', usuario.uid), {
+                    nombreUsuario: nombreLimpio
+                });
+                actualizarUIPerfil({ nombreUsuario: nombreLimpio, fotoPerfil: usuario.photoURL || '' });
+            } catch (err) {
+                console.error('Error al actualizar el nombre de usuario:', err);
+                alert('No se pudo actualizar tu nombre de usuario.');
+            }
+        };
+
+        // ═══════════════════════════════════════════════
+        //  ACTUALIZAR INTERFAZ SEGÚN EL ESTADO DE SESIÓN
+        // ═══════════════════════════════════════════════
+        function actualizarUIPerfil(datos) {
+            const nombre = datos.nombreUsuario || 'Usuario';
+            const foto = datos.fotoPerfil || '';
+            document.getElementById('drawerNombreUsuario').textContent = nombre;
+            document.getElementById('pantallaUsuarioNombre').textContent = nombre;
+            document.getElementById('drawerHeaderTitulo').textContent = nombre;
+            if (foto) {
+                document.getElementById('drawerAvatar').src = foto;
+                document.getElementById('pantallaAvatar').src = foto;
+            }
+        }
+
+        onAuthStateChanged(auth, async (usuario) => {
+            const drawerLogueado   = document.getElementById('drawerPerfilLogueado');
+            const btnLoginDrawer   = document.getElementById('btnLoginDrawer');
+            const perfilInvitado   = document.getElementById('pantallaPerfilInvitado');
+            const perfilUsuario    = document.getElementById('pantallaPerfilUsuario');
+            const drawerHeaderTitulo = document.getElementById('drawerHeaderTitulo');
+
+            if (usuario) {
+                // Sesión iniciada
+                drawerLogueado.style.display = 'flex';
+                btnLoginDrawer.style.display = 'none';
+                perfilInvitado.style.display = 'none';
+                perfilUsuario.style.display  = 'block';
+
+                let datos = { nombreUsuario: usuario.displayName, fotoPerfil: usuario.photoURL };
+                try {
+                    const snap = await getDoc(doc(db, 'usuarios', usuario.uid));
+                    if (snap.exists()) datos = snap.data();
+                } catch (err) {
+                    console.error('No se pudo leer el perfil de Firestore:', err);
+                }
+                actualizarUIPerfil(datos);
+            } else {
+                // Sin sesión iniciada
+                drawerLogueado.style.display = 'none';
+                btnLoginDrawer.style.display = 'flex';
+                perfilInvitado.style.display = 'block';
+                perfilUsuario.style.display  = 'none';
+                drawerHeaderTitulo.textContent = 'Inicia Sesión';
+            }
+
+            actualizarFormularioComentario();
+        });
+
+        // ═══════════════════════════════════════════════
+        //  COMENTARIOS PÚBLICOS DE CADA VIDEO
+        //  → /videos/{videoId}/comentarios/{comentarioId}
+        // ═══════════════════════════════════════════════
+        let videoIdComentariosActual = null;
+        let unsubscribeComentarios   = null;
+
+        function actualizarFormularioComentario() {
+            const form     = document.getElementById('mpComentarioForm');
+            const loginBtn = document.getElementById('mpComentarioLogin');
+            if (!form || !loginBtn) return;
+            if (auth.currentUser) {
+                form.style.display     = 'block';
+                loginBtn.style.display = 'none';
+            } else {
+                form.style.display     = 'none';
+                loginBtn.style.display = 'block';
+            }
+        }
+
+        function escaparHTMLComentario(texto) {
+            const div = document.createElement('div');
+            div.textContent = texto || '';
+            return div.innerHTML;
+        }
+
+        function cargarComentariosVideo(idVideo) {
+            if (unsubscribeComentarios) { unsubscribeComentarios(); unsubscribeComentarios = null; }
+            const lista = document.getElementById('mpListaComentarios');
+            if (!lista) return;
+            lista.innerHTML = '<p class="mp-comentarios-vacio">Cargando comentarios...</p>';
+
+            const refComentarios = collection(db, 'videos', idVideo, 'comentarios');
+            const q = query(refComentarios, orderBy('creadoEn', 'desc'), limit(100));
+
+            unsubscribeComentarios = onSnapshot(q, (snap) => {
+                if (idVideo !== videoIdComentariosActual) return; // el modal cambió de video mientras tanto
+                if (snap.empty) {
+                    lista.innerHTML = '<p class="mp-comentarios-vacio">Sé el primero en comentar este video.</p>';
+                    return;
+                }
+                const usuarioActual = auth.currentUser;
+                lista.innerHTML = snap.docs.map(d => {
+                    const c = d.data();
+                    const fecha = (c.creadoEn && c.creadoEn.toDate)
+                        ? c.creadoEn.toDate().toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })
+                        : '';
+                    const puedeBorrar = usuarioActual && usuarioActual.uid === c.uid;
+                    return `
+                        <div class="mp-comentario-item">
+                            <img class="mp-comentario-avatar" src="${c.fotoPerfil || ''}" alt=""
+                                 onerror="this.style.visibility='hidden'">
+                            <div class="mp-comentario-cuerpo">
+                                <p class="mp-comentario-nombre">${escaparHTMLComentario(c.nombreUsuario || 'Usuario')}</p>
+                                <p class="mp-comentario-texto">${escaparHTMLComentario(c.texto)}</p>
+                                <p class="mp-comentario-fecha">${fecha}</p>
+                                ${puedeBorrar ? `<button class="mp-comentario-borrar" onclick="borrarComentarioVideo('${d.id}')">Borrar</button>` : ''}
+                            </div>
+                        </div>`;
+                }).join('');
+            }, (err) => {
+                console.error('Error al cargar comentarios:', err);
+                lista.innerHTML = '<p class="mp-comentarios-vacio">No se pudieron cargar los comentarios.</p>';
+            });
+        }
+
+        window.mostrarComentariosVideo = function (idVideo) {
+            const idLimpio = String(idVideo || 'video').replace(/\//g, '-').trim().slice(0, 150) || 'video';
+            videoIdComentariosActual = idLimpio;
+
+            const cont = document.getElementById('mpComentarios');
+            if (cont) cont.style.display = 'block';
+            actualizarFormularioComentario();
+            cargarComentariosVideo(idLimpio);
+        };
+
+        window.ocultarComentariosVideo = function () {
+            const cont = document.getElementById('mpComentarios');
+            if (cont) cont.style.display = 'none';
+            if (unsubscribeComentarios) { unsubscribeComentarios(); unsubscribeComentarios = null; }
+            videoIdComentariosActual = null;
+            const lista = document.getElementById('mpListaComentarios');
+            if (lista) lista.innerHTML = '';
+            const textarea = document.getElementById('mpComentarioTexto');
+            if (textarea) textarea.value = '';
+        };
+
+        window.enviarComentarioVideo = async function () {
+            const usuario = auth.currentUser;
+            if (!usuario || !videoIdComentariosActual) return;
+            const textarea = document.getElementById('mpComentarioTexto');
+            const texto = (textarea.value || '').trim();
+            if (!texto) return;
+            if (texto.length > 500) {
+                alert('El comentario es demasiado largo (máximo 500 caracteres).');
+                return;
+            }
+
+            const btn = document.getElementById('mpComentarioEnviar');
+            if (btn) btn.disabled = true;
+            try {
+                let nombreUsuario = usuario.displayName || 'Usuario';
+                let fotoPerfil    = usuario.photoURL || '';
+                try {
+                    const snapPerfil = await getDoc(doc(db, 'usuarios', usuario.uid));
+                    if (snapPerfil.exists()) {
+                        const datosPerfil = snapPerfil.data();
+                        nombreUsuario = datosPerfil.nombreUsuario || nombreUsuario;
+                        fotoPerfil    = datosPerfil.fotoPerfil || fotoPerfil;
+                    }
+                } catch (e) { /* si falla, usamos los datos de Google como respaldo */ }
+
+                await addDoc(collection(db, 'videos', videoIdComentariosActual, 'comentarios'), {
+                    uid: usuario.uid,
+                    texto: texto,
+                    nombreUsuario: nombreUsuario,
+                    fotoPerfil: fotoPerfil,
+                    creadoEn: serverTimestamp()
+                });
+                textarea.value = '';
+            } catch (err) {
+                console.error('Error al publicar el comentario:', err);
+                alert('No se pudo publicar tu comentario. Inténtalo de nuevo.');
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        };
+
+        window.borrarComentarioVideo = async function (idComentario) {
+            if (!videoIdComentariosActual) return;
+            if (!confirm('¿Borrar este comentario?')) return;
+            try {
+                await deleteDoc(doc(db, 'videos', videoIdComentariosActual, 'comentarios', idComentario));
+            } catch (err) {
+                console.error('Error al borrar el comentario:', err);
+                alert('No se pudo borrar el comentario.');
+            }
+        };
     </script>
 
 </body>
